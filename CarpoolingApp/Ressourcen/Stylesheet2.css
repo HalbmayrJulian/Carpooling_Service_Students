@@ -1,0 +1,174 @@
+/* Allgemeine Einstellungen für das Layout */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5; /* Sanftes, helles Grau für den Hintergrund */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+}
+
+/* Benutzer-Dashboard */
+.user-dashboard {
+    width: 100%;
+    max-width: 600px; /* Breitere Dashboard-Breite */
+    margin-top: 50px; /* Mehr Abstand zum oberen Rand */
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.1); /* Weiches, diffuses Schatten für Tiefe */
+    overflow: hidden;
+}
+
+/* Profilbereich */
+.profile-section {
+    display: flex;
+    align-items: center;
+    padding: 30px 40px; /* Mehr Abstand im Profilbereich */
+    background-color: #3e4e5e; /* Mäßig dunkles Blau-Grau für den Profilbereich */
+    color: #fff;
+}
+
+.profile-picture {
+    width: 80px; /* Größeres Profilbild */
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 30px; /* Mehr Abstand zwischen Bild und Text */
+}
+
+.user-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.greeting h2 {
+    margin: 0;
+    font-size: 24px; /* Größere Schriftgröße für den Namen */
+    font-weight: 600;
+    color: #fff;
+}
+
+/* HTL Coins Bereich */
+.coins-box {
+    padding: 35px 30px; /* Mehr Abstand und Breite im Coins-Bereich */
+    background-color: #fafafa; /* Sehr heller Grauton für den Coins-Bereich */
+    margin-top: 30px;
+    margin-bottom: 40px; /* Mehr Abstand nach unten */
+    border-radius: 12px; /* Rundere Ecken */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertikale Zentrierung */
+    align-items: center; /* Horizontale Zentrierung */
+    text-align: center; /* Text zentriert */
+}
+
+.coins-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px; /* Größere Schriftgröße für das Header */
+    font-weight: 500;
+    color: #555;
+    width: 100%; /* Damit es den gesamten Raum ausnutzt */
+    margin-bottom: 20px; /* Abstand nach unten */
+}
+
+.coins-count {
+    font-size: 32px; /* Etwas größere Schrift für die Coin-Zahl */
+    font-weight: 700;
+    color: #2d75d9; /* Blau für die Coins */
+    margin-top: 12px;
+}
+
+/* Kürzliche Aktivitäten */
+.recent-activities {
+    padding: 0 40px 30px; /* Mehr Abstand rund um die Aktivitäten */
+    margin-bottom: 40px; /* Mehr Abstand nach unten */
+}
+
+.recent-activities h3 {
+    font-size: 22px; /* Etwas größere Überschrift */
+    margin-bottom: 20px; /* Mehr Abstand nach unten */
+    color: #333;
+    font-weight: 600;
+}
+
+.activity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: #f1f1f1;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05); /* Sanfter Schatten */
+}
+
+.activity-user {
+    display: flex;
+    align-items: center;
+}
+
+.activity-img {
+    width: 50px; /* Größeres Profilbild für Aktivitäten */
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px; /* Mehr Abstand zwischen Bild und Name */
+}
+
+.activity-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.activity-coins {
+    font-weight: 700;
+    color: #2d75d9; /* Blau für die Coins */
+}
+
+/* Footer-Navigation */
+.footer-navigation {
+    position: fixed;
+    bottom: 30px; /* Mehr Abstand vom unteren Rand */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0; /* Mehr vertikale Polsterung */
+    border-top: 1px solid #ddd;
+    border-radius: 15px; /* Rundere Ecken */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1); /* Sanfter Schatten oben */
+}
+
+.nav-item {
+    text-align: center;
+}
+
+.nav-icon {
+    width: 32px; /* Etwas größere Icons */
+    height: 32px;
+    object-fit: contain;
+    filter: invert(60%); /* Leicht abgedunkelt */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Visuelle Effekte für Hover */
+.nav-item:hover {
+    transform: scale(1.1);
+}
+
+.activity:hover {
+    background-color: #e0f2ff; /* Leicht blauer Hintergrund bei Hover */
+    transform: translateY(-5px);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.coins-box:hover {
+    background-color: #f2f9fe; /* Sehr helles Blau bei Hover */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
