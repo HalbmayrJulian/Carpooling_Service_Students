@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Meine Fahrten</title>
+    <link rel="stylesheet" href="../Ressourcen/Stylesheet.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .rides-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #2980b9;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .ride-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #f4f4f4;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .ride-box:not(.disabled):hover {
+            background: #eaf6ff;
+            transform: scale(1.01);
+            cursor: pointer;
+        }
+
+        .ride-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ride-info strong {
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .ride-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .ride-meta span {
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        .ride-box.disabled {
+            background: #dddddd;
+        }
+
+        .ride-box.disabled:hover {
+            transform: none;
+            background: #dddddd;
+            cursor: default;
+        }
+    </style>
+</head>
+<body>
+    <div class="rides-container">
+        <h1>Meine Fahrten</h1>
+        <div id="open-rides-section">
+            <h2>🚗 Offene Fahrten</h2>
+            <div id="open-rides"></div>
+        </div>
+
+        <div id="closed-rides-section">
+            <h2>✅ Abgeschlossene Fahrten</h2>
+            <div id="closed-rides"></div>
+        </div>
+    </div>
+
+    <script>
+        const rides = [
+            { from: "Waidhofen", to: "Amstetten", date: "2025-04-12", time: "07:30", seats: "2 / 4", link: "EditPage1.html" },
+            { from: "Linz", to: "St. Pölten", date: "2025-02-15", time: "08:00", seats: "1 / 3", link: "EditPage1.html" },
+            { from: "Amstetten", to: "Wien", date: "2025-04-01", time: "06:45", seats: "3 / 3", link: null },
+            { from: "Krems", to: "Tulln", date: "2025-04-05", time: "09:15", seats: "2 / 4", link: null }
+        ];
+
+        const openContainer = document.getElementById("open-rides");
+        const closedContainer = document.getElementById("closed-rides");
+        const today = new Date();
+
+        rides.forEach(ride => {
+            const rideDate = new Date(ride.date + "T" + ride.time);
+            const isPast = rideDate < today;
+
+            const div = document.createElement("div");
+            div.className = "ride-box" + (isPast ? " disabled" : "");
+
+            if (!isPast && ride.link) {
+                div.onclick = () => location.href = ride.link;
+            }
+
+            div.innerHTML = `
+                <div class="ride-info">
+                    <strong>${ride.from} → ${ride.to}</strong>
+                </div>
+                <div class="ride-meta">
+                    <span>Datum: ${ride.date.split("-").reverse().join(".")}</span>
+                    <span>Uhrzeit: ${ride.time}</span>
+                    <span>${ride.seats} Plätze belegt</span>
+                </div>
+            `;
+
+            if (isPast) {
+                closedContainer.appendChild(div);
+            } else {
+                openContainer.appendChild(div);
+            }
+        });
+    </script>
+</body>
+</html>

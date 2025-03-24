@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Fahrt bearbeiten</title>
+    <link rel="stylesheet" href="../Ressourcen/Stylesheet.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .edit-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.96);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .driver-section, .passenger-section {
+            margin-bottom: 30px;
+        }
+
+        .person-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #f4f4f4;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .person-box img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        .person-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .person-name {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .remove-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .remove-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-container">
+        <h1>Fahrt bearbeiten</h1>
+
+        <div class="driver-section">
+            <h2>Fahrer</h2>
+            <div class="person-box">
+                <div class="person-info">
+                    <img src="../Ressourcen/Images/Profile.png" alt="Fahrer">
+                    <span class="person-name">Max Mustermann</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="passenger-section">
+            <h2>Mitfahrer</h2>
+            <div id="passenger-list"></div>
+        </div>
+    </div>
+
+    <script>
+        let passengers = [
+            { name: "Lisa Beispiel" },
+            { name: "Jonas Fahrer" },
+            { name: "Anna Mobil" }
+        ];
+
+        function renderPassengers() {
+            const list = document.getElementById("passenger-list");
+            list.innerHTML = "";
+
+            passengers.forEach((person, index) => {
+                const div = document.createElement("div");
+                div.className = "person-box";
+                div.innerHTML = `
+                    <div class="person-info">
+                        <img src="../Ressourcen/Images/Profile.png" alt="Person">
+                        <span class="person-name">${person.name}</span>
+                    </div>
+                    <button class="remove-button" onclick="removePassenger(${index})">Entfernen</button>
+                `;
+                list.appendChild(div);
+            });
+
+            localStorage.setItem("passengerCount", passengers.length);
+        }
+
+        function removePassenger(index) {
+            if (confirm("Möchtest du diese Person wirklich entfernen?")) {
+                passengers.splice(index, 1);
+                renderPassengers();
+            }
+        }
+
+        window.onload = renderPassengers;
+    </script>
+</body>
+</html>
