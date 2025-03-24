@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Mitfahrgelegenheit finden</title>
+    <link rel="stylesheet" href="../Ressourcen/Stylesheet.css">
+    <style>
+        body {
+            background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .join-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .join-container h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .ride-entry {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f0f0f0;
+            border-radius: 12px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .ride-entry.selected {
+            border-color: #3498db;
+        }
+
+        .ride-entry img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .ride-info {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            flex-grow: 1;
+        }
+
+        .ride-info div {
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .ride-meta {
+            white-space: nowrap;
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        .join-button {
+            display: block;
+            margin: 30px auto 0 auto;
+            padding: 15px 30px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .join-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="join-container">
+        <h1>Mitfahrgelegenheiten</h1>
+
+        <div class="ride-entry" onclick="selectRide(this)">
+            <img src="../Ressourcen/Images/Profile.png" alt="Profilbild">
+            <div class="ride-info">
+                <div>Max Mustermann</div>
+                <div class="ride-meta">08:30 Uhr</div>
+                <div>Wien → Linz</div>
+                <div>2/4 Plätze frei</div>
+            </div>
+        </div>
+
+        <div class="ride-entry" onclick="selectRide(this)">
+            <img src="../Ressourcen/Images/Profile.png" alt="Profilbild">
+            <div class="ride-info">
+                <div>Lisa Beispiel</div>
+                <div class="ride-meta">09:15 Uhr</div>
+                <div>St. Pölten → Amstetten</div>
+                <div>1/3 Plätze frei</div>
+            </div>
+        </div>
+
+        <div class="ride-entry" onclick="selectRide(this)">
+            <img src="../Ressourcen/Images/Profile.png" alt="Profilbild">
+            <div class="ride-info">
+                <div>Jonas Fahrer</div>
+                <div class="ride-meta">07:45 Uhr</div>
+                <div>Melk → Krems</div>
+                <div>3/5 Plätze frei</div>
+            </div>
+        </div>
+
+        <button class="join-button" onclick="joinSelectedRide()">Mitfahren</button>
+    </div>
+
+    <script>
+        let selectedRide = null;
+
+        function selectRide(element) {
+            document.querySelectorAll('.ride-entry').forEach(entry => entry.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedRide = element;
+        }
+
+        function joinSelectedRide() {
+            if (selectedRide) {
+                alert("Du hast eine Mitfahrgelegenheit gewählt! ✨");
+                // hier kannst du später Logik zum Speichern oder Weiterleiten einbauen
+            } else {
+                alert("Bitte wähle zuerst eine Mitfahrgelegenheit aus.");
+            }
+        }
+    </script>
+</body>
+</html>
