@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Fahrt erstellen</title>
+    <link rel="stylesheet" href="../Ressourcen/Stylesheet.css">
+    <style>
+        body {
+            background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .create-container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .create-container h1 {
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #34495e;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .create-button {
+            margin-top: 20px;
+            width: 100%;
+            background-color: #3498db;
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .create-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="create-container">
+        <h1>Fahrt erstellen</h1>
+
+        <div class="input-group">
+            <label for="start">Start</label>
+            <input type="text" id="start" placeholder="Startort eingeben">
+        </div>
+
+        <div class="input-group">
+            <label for="ziel">Ziel</label>
+            <input type="text" id="ziel" placeholder="Zielort eingeben">
+        </div>
+
+        <div class="input-group">
+            <label for="ankunft">Geplante Ankunftszeit</label>
+            <input type="time" id="ankunft">
+        </div>
+
+        <div class="input-group">
+            <label for="sitze">Mögliche Sitzplätze</label>
+            <select id="sitze">
+                <option value="1">1 Platz</option>
+                <option value="2">2 Plätze</option>
+                <option value="3">3 Plätze</option>
+                <option value="4">4 Plätze</option>
+                <option value="5">5 Plätze</option>
+            </select>
+        </div>
+
+        <button class="create-button">Erstellen</button>
+    </div>
+</body>
+</html>
