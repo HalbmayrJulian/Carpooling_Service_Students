@@ -70,6 +70,36 @@
             background: linear-gradient(to right, #2980b9, #5499c7);
             transform: translateY(-2px);
         }
+
+        /* Navigationsleiste */
+        .footer-navigation {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 10px 30px;
+            width: 90%;
+            max-width: 500px;
+        }
+        .nav-icon {
+            width: 35px;
+            height: 35px;
+            transition: transform 0.3s ease;
+            opacity: 0.6;
+        }
+        .nav-icon:hover {
+            transform: scale(1.1);
+        }
+        .nav-icon.active {
+            opacity: 1;
+            filter: brightness(1.2);
+        }
     </style>
 </head>
 <body>
@@ -82,6 +112,19 @@
             <button class="profile-button" onclick="location.href='Mitfahrgelegenheiten.html'">🤝 Mitfahrgelegenheiten</button>
             <button class="profile-button" onclick="location.href='Requests.html'">📩 Anfragen</button>
         </div>
+    </div>
+
+    <!-- Navigationsleiste unten -->
+    <div class="footer-navigation">
+        <a href="Home.html" class="nav-item">
+            <img src="../Ressourcen/Images/HomeIcon.png" alt="Home" class="nav-icon">
+        </a>
+        <a href="Overview.html" class="nav-item">
+            <img src="../Ressourcen/Images/Search.png" alt="Search" class="nav-icon">
+        </a>
+        <a href="UserPage.html" class="nav-item">
+            <img src="../Ressourcen/Images/Profile.png" alt="Profile" class="nav-icon active">
+        </a>
     </div>
 </body>
 </html>

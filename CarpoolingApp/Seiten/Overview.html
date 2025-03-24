@@ -4,6 +4,36 @@
     <meta charset="UTF-8">
     <title>Übersicht</title>
     <link rel="stylesheet" href="../Ressourcen/overview.css">
+    <style>
+        .footer-navigation {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 10px 30px;
+            width: 90%;
+            max-width: 500px;
+        }
+        .nav-icon {
+            width: 35px;
+            height: 35px;
+            transition: transform 0.3s ease;
+            opacity: 0.6;
+        }
+        .nav-icon:hover {
+            transform: scale(1.1);
+        }
+        .nav-icon.active {
+            opacity: 1;
+            filter: brightness(1.2);
+        }
+    </style>
 </head>
 <body>
     <div class="overview-container">
@@ -18,6 +48,19 @@
         </div>
 
         <div class="fun-tip">Tipp: Je mehr du fährst, desto mehr Coins verdienst du! 💰</div>
+    </div>
+
+    <!-- Navigationsleiste unten -->
+    <div class="footer-navigation">
+        <a href="Home.html" class="nav-item">
+            <img src="../Ressourcen/Images/HomeIcon.png" alt="Home" class="nav-icon">
+        </a>
+        <a href="Overview.html" class="nav-item">
+            <img src="../Ressourcen/Images/Search.png" alt="Search" class="nav-icon active">
+        </a>
+        <a href="Profil.html" class="nav-item">
+            <img src="../Ressourcen/Images/Profile.png" alt="Profile" class="nav-icon">
+        </a>
     </div>
 
     <script src="../Ressourcen/JavaScript.js"></script>
