@@ -67,3 +67,6 @@ CREATE TABLE Shop_Items (
     FOREIGN KEY (ShopId) REFERENCES Shop(ShopId),
     FOREIGN KEY (ItemId) REFERENCES Items(ItemId)
 );
+
+CREATE USER 'carpooladmin'@'%' IDENTIFIED BY 'cisco';
+GRANT ALL PRIVILEGES ON carpool.* TO 'carpooladmin'@'%' WITH GRANT OPTION;
