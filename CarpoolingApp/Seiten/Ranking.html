@@ -4,74 +4,149 @@
     <meta charset="UTF-8">
     <title>Rangliste</title>
     <link rel="stylesheet" href="../Ressourcen/Stylesheet.css">
-    <link rel="stylesheet" href="../Ressourcen/Stylesheet2.css">
+    <style>
+        body {
+            background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .ranking-container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(4px);
+        }
+
+        .ranking-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .ranking-header img {
+            width: 60px;
+            margin-right: 20px;
+        }
+
+        .ranking-header h1 {
+            color: #2c3e50;
+            font-size: 2.2em;
+            margin: 0;
+        }
+
+        .user-rank {
+            background: linear-gradient(135deg, #e0f7ff, #d0ecff);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .user-rank img {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            border: 2px solid #3498db;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .user-info span {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #34495e;
+        }
+
+        .ranking-list .entry {
+            background-color: #ffffff;
+            padding: 20px 25px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+            transition: transform 0.2s;
+        }
+
+        .ranking-list .entry:hover {
+            transform: translateY(-4px);
+            background-color: #f0faff;
+        }
+
+        .ranking-list .entry img {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+        }
+
+        .ranking-list .entry .details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ranking-list .entry .details span {
+            font-weight: 500;
+            font-size: 1.05em;
+            color: #2c3e50;
+        }
+    </style>
 </head>
 <body>
-    <div class="user-dashboard">
-        <div class="profile-section">
-            <div class="profile-picture">
-                <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="user-img">
-            </div>
-            <div class="greeting">
-                <h2>Willkommen zurück!</h2>
+    <div class="ranking-container">
+        <div class="ranking-header">
+            <img src="../Ressourcen/Images/Auto.png" alt="Auto">
+            <h1>Rangliste</h1>
+        </div>
+
+        <div class="user-rank">
+            <img src="../Ressourcen/Images/Profile.png" alt="Profilbild">
+            <div class="user-info">
+                <span><strong>Du:</strong> Max Mustermann</span>
+                <span>Gefahrene Kilometer: 150 km</span>
+                <span>Dein Rang: #4</span>
             </div>
         </div>
 
-        <div class="coins-box">
-            <div class="coins-header">
-                <span>HTL Coins</span>
-                <span id="current-date"></span>
-            </div>
-            <div class="coins-count">120</div>
-        </div>
-
-        <div class="recent-activities">
-            <h3>🏆 Rangliste</h3>
-
-            <div class="activity">
-                <div class="activity-user">
-                    <img src="../Ressourcen/Images/Profile.png" class="activity-img">
-                    <span class="activity-name">gypsy</span>
+        <div class="ranking-list">
+            <div class="entry">
+                <img src="../Ressourcen/Images/Profile.png" alt="Profilbild">
+                <div class="details">
+                    <span><strong>#1:</strong> Lisa Beispiel</span>
+                    <span>Gefahrene Kilometer: 320 km</span>
                 </div>
-                <div class="activity-coins">270 km</div>
             </div>
 
-            <div class="activity">
-                <div class="activity-user">
-                    <img src="../Ressourcen/Images/Profile.png" class="activity-img">
-                    <span class="activity-name">ifeng</span>
+            <div class="entry">
+                <img src="../Ressourcen/Images/Profile.png" alt="Profilbild">
+                <div class="details">
+                    <span><strong>#2:</strong> Jonas Fahrer</span>
+                    <span>Gefahrene Kilometer: 280 km</span>
                 </div>
-                <div class="activity-coins">50 km</div>
             </div>
 
-            <div class="activity">
-                <div class="activity-user">
-                    <img src="../Ressourcen/Images/Profile.png" class="activity-img">
-                    <span class="activity-name">gifg</span>
+            <div class="entry">
+                <img src="../Ressourcen/Images/Profile.png" alt="Profilbild">
+                <div class="details">
+                    <span><strong>#3:</strong> Anna Mobil</span>
+                    <span>Gefahrene Kilometer: 200 km</span>
                 </div>
-                <div class="activity-coins">20 km</div>
-            </div>
-        </div>
-
-        <div class="footer-navigation">
-            <div class="nav-item">
-                <a href="Home.html">
-                    <img src="../Ressourcen/Images/HomeIcon.png" alt="Home" class="nav-icon">
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="Shop.html">
-                    <img src="../Ressourcen/Images/HTLWYLogo.png" alt="Shop" class="nav-icon">
-                </a>
-            </div>
-            <div class="nav-item">
-                <a href="Profil.html">
-                    <img src="../Ressourcen/Images/Profile.png" alt="Profil" class="nav-icon">
-                </a>
             </div>
         </div>
     </div>
-
-    <script src="../Ressourcen/JavaScript.js"></script>
 </body>
 </html>
