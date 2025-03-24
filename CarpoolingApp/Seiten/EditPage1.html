@@ -19,6 +19,7 @@
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
 
         h1 {
@@ -72,6 +73,27 @@
         .remove-button:hover {
             background-color: #c0392b;
         }
+
+        .next-button {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        .next-button:hover {
+            background-color: #2980b9;
+        }
     </style>
 </head>
 <body>
@@ -92,6 +114,8 @@
             <h2>Mitfahrer</h2>
             <div id="passenger-list"></div>
         </div>
+
+        <button class="next-button" onclick="location.href='EditPage2.html'">→</button>
     </div>
 
     <script>

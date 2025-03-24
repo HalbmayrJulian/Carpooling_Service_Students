@@ -6,6 +6,45 @@
     <title>User Startseite</title>
     <link rel="stylesheet" href="../Ressourcen/Stylesheet2.css">
     <script src="../Ressourcen/JavaScript.js" defer></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .activity-name {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        .activity-coins span {
+            font-weight: 600;
+            color: #27ae60;
+        }
+        .footer-navigation {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 10px 30px;
+            width: 90%;
+            max-width: 500px;
+        }
+        .nav-icon {
+            width: 35px;
+            height: 35px;
+            transition: transform 0.3s ease;
+        }
+        .nav-icon:hover {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
 <body>
 
@@ -33,7 +72,9 @@
 
     <!-- Kürzliche Aktivitäten -->
     <div class="recent-activities">
-        <h3>Kürzliche Aktivitäten</h3>
+        <h3>🔔 Kürzliche Aktivitäten</h3>
+
+        <!-- Aktivitätenliste -->
         <div class="activity">
             <div class="activity-user">
                 <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
@@ -43,7 +84,7 @@
                 <span>+50</span>
             </div>
         </div>
-        <!-- Weitere Aktivitäten können hier hinzugefügt werden -->
+
         <div class="activity">
             <div class="activity-user">
                 <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
@@ -53,6 +94,7 @@
                 <span>+30</span>
             </div>
         </div>
+
         <div class="activity">
             <div class="activity-user">
                 <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
@@ -62,6 +104,7 @@
                 <span>+70</span>
             </div>
         </div>
+
         <div class="activity">
             <div class="activity-user">
                 <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
@@ -71,6 +114,7 @@
                 <span>+40</span>
             </div>
         </div>
+
         <div class="activity">
             <div class="activity-user">
                 <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
@@ -84,13 +128,13 @@
 
     <!-- Navigationssymbole am unteren Rand -->
     <div class="footer-navigation">
-        
+        <a href="Home.html" class="nav-item">
             <img src="../Ressourcen/Images/HomeIcon.png" alt="Home" class="nav-icon">
         </a>
-        <a href="./Overview.html" class="nav-item">
+        <a href="Overview.html" class="nav-item">
             <img src="../Ressourcen/Images/Search.png" alt="Search" class="nav-icon">
         </a>
-        <a href="./Profil.html" class="nav-item">
+        <a href="Profil.html" class="nav-item">
             <img src="../Ressourcen/Images/Profile.png" alt="Profile" class="nav-icon">
         </a>
     </div>
