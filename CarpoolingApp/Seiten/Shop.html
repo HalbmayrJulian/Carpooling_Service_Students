@@ -116,6 +116,13 @@
             localStorage.setItem('cart', JSON.stringify(cart));
             alert(itemName + " wurde zum Warenkorb hinzugefügt!");
         }
+
+        function displayCoins() {
+            const balance = parseInt(localStorage.getItem("coins")) || 120;
+            document.getElementById("coinDisplay").innerText = "Dein Guthaben: " + balance + " Coins";
+        }
+
+        window.onload = displayCoins;
     </script>
 </head>
 <body>
@@ -130,7 +137,7 @@
             </a>
         </div>
 
-        <div class="coin-balance">Dein Guthaben: 120 Coins</div>
+        <div class="coin-balance" id="coinDisplay">Dein Guthaben: 120 Coins</div>
 
         <div class="items-grid">
             <div class="item-card">
