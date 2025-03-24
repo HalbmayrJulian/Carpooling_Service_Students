@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Mitfahrgelegenheiten</title>
+    <link rel="stylesheet" href="../Ressourcen/Stylesheet.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .rides-container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .ride-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #f4f4f4;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: background 0.3s, transform 0.2s;
+            cursor: pointer;
+        }
+
+        .ride-box:hover {
+            background: #eaf6ff;
+            transform: scale(1.01);
+        }
+
+        .ride-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .ride-info strong {
+            font-size: 1.1em;
+            color: #2c3e50;
+        }
+
+        .ride-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            text-align: right;
+        }
+
+        .ride-meta span {
+            font-size: 0.95em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="rides-container">
+        <h1>Meine Mitfahrgelegenheiten</h1>
+        <div id="ride-list"></div>
+    </div>
+
+    <script>
+        let rides = JSON.parse(localStorage.getItem("joinedRides")) || [
+            { from: "Wien", to: "Linz", date: "13.04.2025", time: "08:15", seats: "3 / 4" },
+            { from: "St. Pölten", to: "Waidhofen", date: "18.04.2025", time: "09:00", seats: "2 / 3" },
+            { from: "Krems", to: "Amstetten", date: "20.04.2025", time: "07:00", seats: "1 / 5" }
+        ];
+
+        const container = document.getElementById("ride-list");
+
+        function renderRides() {
+            container.innerHTML = "";
+            if (rides.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color: #7f8c8d;">Keine Mitfahrgelegenheiten gefunden.</p>';
+                return;
+            }
+
+            rides.forEach((ride, index) => {
+                const div = document.createElement("div");
+                div.className = "ride-box";
+                div.onclick = () => removeRide(index);
+
+                div.innerHTML = `
+                    <div class="ride-info">
+                        <strong>${ride.from} → ${ride.to}</strong>
+                    </div>
+                    <div class="ride-meta">
+                        <span>Datum: ${ride.date}</span>
+                        <span>Uhrzeit: ${ride.time}</span>
+                        <span>${ride.seats} Plätze belegt</span>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function removeRide(index) {
+            if (confirm("Möchtest du dich wirklich von dieser Fahrt abmelden?")) {
+                rides.splice(index, 1);
+                localStorage.setItem("joinedRides", JSON.stringify(rides));
+                renderRides();
+            }
+        }
+
+        renderRides();
+    </script>
+</body>
+</html>
