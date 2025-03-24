@@ -1,3 +1,82 @@
+const mariadb = require('mariadb');
+
+const pool = mariadb.createPool({
+    host: 'localhost', 
+    user: 'carpooladmin', // User anpassen
+    password: 'cisco', // Passwort anpassen
+    database: 'carpool',
+    connectionLimit: 5
+});
+
+async function queryDatabase(query, params) {
+    let connection;
+    try {
+        connection = await pool.getConnection();
+        console.log('Verbindung erfolgreich hergestellt');
+        const rows = await connection.query(query, params);
+        return rows;
+    } catch (err) {
+        console.log('Verbindung fehlgeschlagen:', err);
+        throw err;
+    } finally {
+        if (connection) connection.end();
+    }
+}
+
+// Funktion zum Abrufen aller Personen
+async function getAllPersons() {
+    const query = 'SELECT * FROM Person';
+    return await queryDatabase(query);
+}
+
+// Funktion zum Abrufen aller Routen
+async function getAllRoutes() {
+    const query = 'SELECT * FROM Route';
+    return await queryDatabase(query);
+}
+
+// Funktion zum Abrufen aller Fahrten
+async function getAllFahrten() {
+    const query = 'SELECT * FROM Fahrt';
+    return await queryDatabase(query);
+}
+
+// Funktion zum Abrufen aller Autofahrten
+async function getAllAutofahrten() {
+    const query = 'SELECT * FROM Autofahrt';
+    return await queryDatabase(query);
+}
+
+// Funktion zum Abrufen aller Autofahrt-Passagiere
+async function getAllAutofahrtPassangers() {
+    const query = 'SELECT * FROM Autofahrt_Passanger';
+    return await queryDatabase(query);
+}
+
+// Funktion zum Abrufen aller alternativen Fahrten
+async function getAllAlternativeFahrten() {
+    const query = 'SELECT * FROM AlternativeFahrt';
+    return await queryDatabase(query);
+}
+
+// Funktion zum Abrufen aller Shops
+async function getAllShops() {
+    const query = 'SELECT * FROM Shop';
+    return await queryDatabase(query);
+}
+
+// Funktion zum Abrufen aller Items
+async function getAllItems() {
+    const query = 'SELECT * FROM Items';
+    return await queryDatabase(query);
+}
+
+// Funktion zum Abrufen aller Shop-Items
+async function getAllShopItems() {
+    const query = 'SELECT * FROM Shop_Items';
+    return await queryDatabase(query);
+}
+
 // Beispiel: Auto-Bildgröße dynamisch ändern
 window.addEventListener('resize', function() {
     const carImage = document.querySelector('.car-image');
