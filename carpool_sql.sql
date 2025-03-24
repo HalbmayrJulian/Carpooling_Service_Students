@@ -2,68 +2,68 @@ CREATE OR REPLACE DATABASE carpool;
 
 USE carpool;
 
-CREATE TABLE users (
-    userId INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    Adresse VARCHAR(255) NOT NULL,
+CREATE TABLE Person (
+    UserId INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Adresse VARCHAR(255),
+    Password VARCHAR(255),
+    Email VARCHAR(255),
+    GesamtDistanz INT,
     Coins INT
-
 );
 
-CREATE TABLE route (
-    routeId INT AUTO_INCREMENT PRIMARY KEY,
-    startOrt VARCHAR(255) NOT NULL,
-    zielOrt VARCHAR(255) NOT NULL,
-    distanz INT NOT NULL,
-    startLatitude DECIMAL(9,6) NOT NULL,
-    startLongitude DECIMAL(9,6) NOT NULL,
-    endLatitude DECIMAL(9,6) NOT NULL,
-    endLongitude DECIMAL(9,6) NOT NULL
-
+CREATE TABLE Route (
+    RouteId INT PRIMARY KEY,
+    ZielOrt VARCHAR(255),
+    StartOrt VARCHAR(255),
+    Distanz INT,
+    Weg VARCHAR(255) -- z. B. "Maps Route" oder "Genaue Fahrt"
 );
 
-CREATE TABLE fahrt (
-    fahrtId INT AUTO_INCREMENT PRIMARY KEY,
-    userId INT,
-    datum DATETIME NOT NULL,
-    tag BOOLEAN DEFAULT FALSE,
-    routeId INT,
-    FOREIGN KEY (userId) REFERENCES users(userId),
-    FOREIGN KEY (routeId) REFERENCES route(routeId)
-
+CREATE TABLE Fahrt (
+    FahrtId INT PRIMARY KEY,
+    UserId INT,
+    Datum DATETIME,
+    RouteId INT,
+    Tag BOOLEAN,
+    FOREIGN KEY (UserId) REFERENCES Person(UserId),
+    FOREIGN KEY (RouteId) REFERENCES Route(RouteId)
 );
 
-CREATE TABLE autofahrt (
-    fahrtId INT,
-    userId INT,
-    sitze INT NOT NULL,
-    FOREIGN KEY (fahrtId) REFERENCES fahrt(fahrtId),
-    FOREIGN KEY (userId) REFERENCES users(userId)
-
+CREATE TABLE Autofahrt (
+    FahrtId INT PRIMARY KEY,
+    Sitze INT,
+    FOREIGN KEY (FahrtId) REFERENCES Fahrt(FahrtId)
 );
 
-CREATE TABLE alternativefahrt (
-    fahrtId INT,
-    userId INT,
-    typ VARCHAR(255) NOT NULL,
-    FOREIGN KEY (fahrtId) REFERENCES fahrt(fahrtId),
-    FOREIGN KEY (userId) REFERENCES users(userId)
-
+CREATE TABLE Autofahrt_Passanger (
+    FahrtId INT,
+    UserId INT,
+    PRIMARY KEY (FahrtId, UserId),
+    FOREIGN KEY (FahrtId) REFERENCES Autofahrt(FahrtId),
+    FOREIGN KEY (UserId) REFERENCES Person(UserId)
 );
 
-CREATE TABLE shopping (
-    shoppingId INT AUTO_INCREMENT PRIMARY KEY,
-    userId INT,
-    datum DATETIME NOT NULL,
-    FOREIGN KEY (userId) REFERENCES users(userId)
+CREATE TABLE AlternativeFahrt (
+    FahrtId INT PRIMARY KEY,
+    Typ ENUM('Fahrrad', 'Moped', 'Fuß'),
+    FOREIGN KEY (FahrtId) REFERENCES Fahrt(FahrtId)
 );
 
-CREATE TABLE Item (
-    itemId INT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    preis DECIMAL(10,2) NOT NULL
-
+CREATE TABLE Shop (
+    ShopId INT PRIMARY KEY AUTO_INCREMENT
 );
- 
+
+CREATE TABLE Items (
+    ItemId INT PRIMARY KEY,
+    Name VARCHAR(255),
+    Price DOUBLE
+);
+
+CREATE TABLE Shop_Items (
+    ShopId INT,
+    ItemId INT,
+    PRIMARY KEY (ShopId, ItemId),
+    FOREIGN KEY (ShopId) REFERENCES Shop(ShopId),
+    FOREIGN KEY (ItemId) REFERENCES Items(ItemId)
+);
