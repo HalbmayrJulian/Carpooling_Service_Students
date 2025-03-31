@@ -71,9 +71,9 @@
             font-weight: bold;
         }
 
-        .join-button {
+        .join-button, .back-button {
             display: block;
-            margin: 30px auto 0 auto;
+            margin: 20px auto 0 auto;
             padding: 15px 30px;
             background-color: #3498db;
             color: white;
@@ -82,10 +82,20 @@
             font-size: 1.1em;
             cursor: pointer;
             transition: background-color 0.3s;
+            width: 250px;
         }
 
         .join-button:hover {
             background-color: #2980b9;
+        }
+
+        .back-button {
+            background-color: #e0e0e0;
+            color: #2c3e50;
+        }
+
+        .back-button:hover {
+            background-color: #c7c7c7;
         }
     </style>
 </head>
@@ -124,6 +134,7 @@
         </div>
 
         <button class="join-button" onclick="joinSelectedRide()">Mitfahren</button>
+        <button class="back-button" onclick="location.href='Overview.html'">Zurück</button>
     </div>
 
     <script>
