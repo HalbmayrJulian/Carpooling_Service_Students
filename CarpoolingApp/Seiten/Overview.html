@@ -3,8 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Übersicht</title>
-    <link rel="stylesheet" href="../Ressourcen/overview.css">
     <style>
+        body {
+            background-image: url("../Ressourcen/Images/Background2.jpg");
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        .overview-container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 400px;
+            margin: 100px auto;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .overview-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .overview-image {
+            width: 200px;
+            margin-bottom: 20px;
+        }
+
+        .overview-buttons a {
+            display: block;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .overview-buttons a:hover {
+            background-color: #1976D2;
+        }
+
+        .fun-tip {
+            margin-top: 20px;
+            font-style: italic;
+            color: #444;
+        }
+
         .footer-navigation {
             display: flex;
             justify-content: space-around;
@@ -20,15 +70,18 @@
             width: 90%;
             max-width: 500px;
         }
+
         .nav-icon {
             width: 35px;
             height: 35px;
             transition: transform 0.3s ease;
             opacity: 0.6;
         }
+
         .nav-icon:hover {
             transform: scale(1.1);
         }
+
         .nav-icon.active {
             opacity: 1;
             filter: brightness(1.2);
