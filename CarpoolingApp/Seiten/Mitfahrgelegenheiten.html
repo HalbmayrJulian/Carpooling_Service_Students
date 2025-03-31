@@ -65,12 +65,33 @@
             font-size: 0.95em;
             color: #555;
         }
+
+        .back-button {
+            display: block;
+            margin: 40px auto 0 auto;
+            padding: 15px 30px;
+            background-color: #e0e0e0;
+            color: #2c3e50;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background-color: #c7c7c7;
+        }
     </style>
 </head>
 <body>
     <div class="rides-container">
         <h1>Meine Mitfahrgelegenheiten</h1>
         <div id="ride-list"></div>
+
+        <!-- Zurück-zum-Profil-Button -->
+        <button class="back-button" onclick="location.href='Profil.html'">Zurück</button>
     </div>
 
     <script>
