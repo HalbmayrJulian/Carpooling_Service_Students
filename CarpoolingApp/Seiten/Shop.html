@@ -108,6 +108,24 @@
         .add-button:hover {
             background-color: #2980b9;
         }
+
+        .back-button {
+            display: block;
+            margin: 50px auto 0 auto;
+            padding: 15px 30px;
+            background-color: #e0e0e0;
+            color: #2c3e50;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .back-button:hover {
+            background-color: #c7c7c7;
+        }
     </style>
     <script>
         function addToCart(itemName, price) {
@@ -168,6 +186,9 @@
                 <button class="add-button" onclick="addToCart('Gratis Menü', 100)">In den Warenkorb</button>
             </div>
         </div>
+
+        <!-- Zurück-Button -->
+        <button class="back-button" onclick="location.href='Overview.html'">🔙 Zurück zur Übersicht</button>
     </div>
 </body>
 </html>
