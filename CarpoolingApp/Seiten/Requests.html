@@ -2,7 +2,8 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Anfragen</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konto erstellen</title>
     <link rel="stylesheet" href="../Ressourcen/Stylesheet.css">
     <style>
         body {
@@ -12,131 +13,119 @@
             background-size: cover;
         }
 
-        .requests-container {
-            max-width: 800px;
-            margin: 50px auto;
+        .register-container {
+            max-width: 500px;
+            margin: 60px auto;
             background: rgba(255, 255, 255, 0.95);
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
             color: #2c3e50;
             margin-bottom: 30px;
         }
 
-        .request-box {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f4f4f4;
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        .input-field {
+            margin-bottom: 20px;
+            text-align: left;
         }
 
-        .request-info {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .request-info span {
-            font-size: 1em;
+        .input-field label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
             color: #2c3e50;
         }
 
-        .actions {
-            display: flex;
-            gap: 10px;
+        .input-field input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
         }
 
-        .accept, .decline {
-            border: none;
-            padding: 10px 15px;
-            border-radius: 6px;
+        .continue-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
             font-size: 1em;
-            font-weight: bold;
+            border: none;
+            border-radius: 10px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
-        .accept {
-            background-color: #2ecc71;
-            color: white;
+        .continue-button:hover {
+            background-color: #2980b9;
         }
 
-        .decline {
-            background-color: #e74c3c;
-            color: white;
+        .back-link {
+            margin-top: 20px;
         }
 
-        .accept:hover {
-            background-color: #27ae60;
+        .back-link a {
+            color: #3498db;
+            text-decoration: none;
         }
 
-        .decline:hover {
-            background-color: #c0392b;
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+
+        .profile-back-button {
+            display: block;
+            margin: 40px auto 0 auto;
+            padding: 12px 24px;
+            background-color: #e0e0e0;
+            color: #2c3e50;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .profile-back-button:hover {
+            background-color: #c7c7c7;
         }
     </style>
 </head>
 <body>
-    <div class="requests-container">
-        <h1>Mitfahr-Anfragen</h1>
-        <div id="request-list"></div>
+
+<div class="register-container">
+    <h1>Konto erstellen</h1>
+
+    <form action="./UserPage.html" method="POST">
+        <div class="input-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="input-field">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="input-field">
+            <label for="address">Adresse (wo du wohnst)</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+
+        <button type="submit" class="continue-button">Weiter</button>
+    </form>
+
+    <div class="back-link">
+        <a href="./Login.html">Zurück zur Login-Seite</a>
     </div>
 
-    <script>
-        let requests = JSON.parse(localStorage.getItem("rideRequests")) || [
-            { name: "Lisa Beispiel", pickup: "Waidhofen" },
-            { name: "Jonas Fahrer", pickup: "Linz" },
-            { name: "Anna Mobil", pickup: "Krems" }
-        ];
+    <!-- Zurück-zum-Profil-Button -->
+    <button class="profile-back-button" onclick="location.href='Profil.html'">Zurück</button>
+</div>
 
-        const container = document.getElementById("request-list");
-
-        function renderRequests() {
-            container.innerHTML = "";
-
-            if (requests.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color:#7f8c8d;">Keine Anfragen vorhanden.</p>';
-                return;
-            }
-
-            requests.forEach((req, index) => {
-                const div = document.createElement("div");
-                div.className = "request-box";
-                div.innerHTML = `
-                    <div class="request-info">
-                        <span><strong>${req.name}</strong></span>
-                        <span>Abholort: ${req.pickup}</span>
-                    </div>
-                    <div class="actions">
-                        <button class="accept" onclick="acceptRequest(${index})">✔</button>
-                        <button class="decline" onclick="declineRequest(${index})">✖</button>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function acceptRequest(index) {
-            alert(`${requests[index].name} wurde angenommen.`);
-            requests.splice(index, 1);
-            localStorage.setItem("rideRequests", JSON.stringify(requests));
-            renderRequests();
-        }
-
-        function declineRequest(index) {
-            if (confirm("Möchtest du diese Anfrage ablehnen?")) {
-                requests.splice(index, 1);
-                localStorage.setItem("rideRequests", JSON.stringify(requests));
-                renderRequests();
-            }
-        }
-
-        renderRequests();
-    </script>
 </body>
 </html>
