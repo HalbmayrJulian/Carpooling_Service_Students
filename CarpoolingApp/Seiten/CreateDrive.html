@@ -1,108 +1,122 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <title>Fahrt erstellen</title>
-    <link rel="stylesheet" href="../Ressourcen/Stylesheet.css">
-    <style>
-        body {
-            background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <title>Fahrt erstellen</title>
+  <style>
+    body {
+      background-image: url("../Ressourcen/Images/Background2.jpg");
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      font-family: sans-serif;
+    }
 
-        .create-container {
-            background: rgba(255, 255, 255, 0.85);
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
+    .container {
+      background-color: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 450px;
+      margin: 100px auto;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
 
-        .create-container h1 {
-            font-size: 2em;
-            margin-bottom: 30px;
-            color: #2c3e50;
-        }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
 
-        .input-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
+    .form-group {
+      text-align: left;
+      margin-bottom: 20px;
+    }
 
-        .input-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 8px;
-            color: #34495e;
-        }
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      font-size: 14px;
+    }
 
-        .input-group input,
-        .input-group select {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 1em;
-            box-sizing: border-box;
-        }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
 
-        .create-button {
-            margin-top: 20px;
-            width: 100%;
-            background-color: #3498db;
-            color: white;
-            padding: 15px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #2196F3;
+      box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+    }
 
-        .create-button:hover {
-            background-color: #2980b9;
-        }
-    </style>
+    .button {
+      width: 100%;
+      padding: 15px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    .button-primary {
+      background-color: #2196F3;
+      color: white;
+    }
+
+    .button-primary:hover {
+      background-color: #1976D2;
+    }
+
+    .button-secondary {
+      background-color: #e0e0e0;
+      color: #333;
+    }
+
+    .button-secondary:hover {
+      background-color: #c7c7c7;
+    }
+  </style>
 </head>
 <body>
-    <div class="create-container">
-        <h1>Fahrt erstellen</h1>
+  <div class="container">
+    <h1>🚗 Fahrt erstellen</h1>
 
-        <div class="input-group">
-            <label for="start">Start</label>
-            <input type="text" id="start" placeholder="Startort eingeben">
-        </div>
-
-        <div class="input-group">
-            <label for="ziel">Ziel</label>
-            <input type="text" id="ziel" placeholder="Zielort eingeben">
-        </div>
-
-        <div class="input-group">
-            <label for="ankunft">Geplante Ankunftszeit</label>
-            <input type="time" id="ankunft">
-        </div>
-
-        <div class="input-group">
-            <label for="sitze">Mögliche Sitzplätze</label>
-            <select id="sitze">
-                <option value="1">1 Platz</option>
-                <option value="2">2 Plätze</option>
-                <option value="3">3 Plätze</option>
-                <option value="4">4 Plätze</option>
-                <option value="5">5 Plätze</option>
-            </select>
-        </div>
-
-        <button class="create-button">Erstellen</button>
+    <div class="form-group">
+      <label for="start">Startort</label>
+      <input type="text" id="start" placeholder="z. B. Linz Hauptbahnhof">
     </div>
+
+    <div class="form-group">
+      <label for="ziel">Zielort</label>
+      <input type="text" id="ziel" placeholder="z. B. HTL Wels">
+    </div>
+
+    <div class="form-group">
+      <label for="zeit">Datum & Uhrzeit</label>
+      <input type="datetime-local" id="zeit">
+    </div>
+
+    <div class="form-group">
+      <label for="plaetze">Freie Plätze</label>
+      <select id="plaetze">
+        <option value="1">1 Platz</option>
+        <option value="2">2 Plätze</option>
+        <option value="3">3 Plätze</option>
+        <option value="4">4 Plätze</option>
+      </select>
+    </div>
+
+    <button class="button button-primary">Fahrt speichern</button>
+    <button class="button button-secondary" onclick="location.href='Overview.html'">🔙 Zurück zur Übersicht</button>
+  </div>
 </body>
 </html>
