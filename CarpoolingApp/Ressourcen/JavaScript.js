@@ -1,7 +1,7 @@
-const mariadb = require('mariadb');
+import mariadb from 'mariadb';
 
 const pool = mariadb.createPool({
-    host: 'localhost', 
+    host: '10.111.0.121', // IP-Adresse anpassen
     user: 'carpooladmin', // User anpassen
     password: 'cisco', // Passwort anpassen
     database: 'carpool',
@@ -26,7 +26,13 @@ async function queryDatabase(query, params) {
 // Funktion zum Abrufen aller Personen
 async function getAllPersons() {
     const query = 'SELECT * FROM Person';
-    return await queryDatabase(query);
+    try {
+        const persons = await queryDatabase(query);
+        console.log('Personen:', persons);
+        // Hier kannst du die Personen-Daten weiterverarbeiten oder anzeigen
+    } catch (err) {
+        console.error('Fehler beim Abrufen der Personen:', err);
+    }
 }
 
 // Funktion zum Abrufen aller Routen
