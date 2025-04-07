@@ -4,141 +4,260 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Startseite</title>
-    <link rel="stylesheet" href="../Ressourcen/Stylesheet2.css">
     <script src="../Ressourcen/JavaScript.js" defer></script>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-        .activity-name {
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        .activity-coins span {
-            font-weight: 600;
-            color: #27ae60;
-        }
-        .footer-navigation {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            padding: 10px 30px;
-            width: 90%;
-            max-width: 500px;
-        }
-        .nav-icon {
-            width: 35px;
-            height: 35px;
-            transition: transform 0.3s ease;
-        }
-        .nav-icon:hover {
-            transform: scale(1.1);
-        }
+
+/* Allgemeine Layout-Einstellungen */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Wrapper für gesamte Seite */
+.wrapper {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Dashboard */
+.user-dashboard {
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin-bottom: 100px; /* Platz für Navigation */
+}
+
+/* Profilbereich */
+.profile-section {
+    display: flex;
+    align-items: center;
+    padding: 30px 40px;
+    background-color: #3e4e5e;
+    color: #fff;
+}
+
+.profile-picture {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 30px;
+}
+
+.user-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.greeting h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* HTL Coins Bereich */
+.coins-box {
+    padding: 30px;
+    background-color: #fafafa;
+    border-radius: 12px;
+    text-align: center;
+}
+
+.coins-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.coins-count {
+    font-size: 32px;
+    font-weight: 700;
+    color: #2d75d9;
+}
+
+/* Aktivitäten */
+.recent-activities {
+    padding: 0 30px 30px;
+}
+
+.recent-activities h3 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: 600;
+}
+
+.activity {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    background-color: #f1f1f1;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.activity:hover {
+    background-color: #e0f2ff;
+    transform: translateY(-5px);
+}
+
+.activity-user {
+    display: flex;
+    align-items: center;
+}
+
+.activity-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.activity-name {
+    font-weight: 600;
+    color: #333;
+}
+
+.activity-coins {
+    font-weight: 700;
+    color: #2d75d9;
+}
+
+/* Footer-Navigation */
+.footer-navigation {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px 0;
+    border-top: 1px solid #ddd;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+}
+
+.nav-item {
+    text-align: center;
+}
+
+.nav-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    filter: invert(60%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.nav-item:hover .nav-icon {
+    transform: scale(1.1);
+}
+
+/* Responsive Anpassung */
+@media (max-width: 600px) {
+    .profile-section {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile-picture {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    .coins-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+
+
+
     </style>
 </head>
 <body>
-
-<div class="user-dashboard">
-    <!-- Profilbereich oben links -->
-    <div class="profile-section">
-        <div class="profile-picture">
-            <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="user-img">
-        </div>
-        <div class="greeting">
-            <h2>Guten Tag, <span id="user-name">Max Mustermann</span></h2>
-        </div>
-    </div>
-
-    <!-- HTL Coins Bereich -->
-    <div class="coins-box">
-        <div class="coins-header">
-            <span>HTL COINS</span>
-            <span id="current-date">14. März 2025</span>
-        </div>
-        <div class="coins-count">
-            <span id="user-coins">500</span>
-        </div>
-    </div>
-
-    <!-- Kürzliche Aktivitäten -->
-    <div class="recent-activities">
-        <h3>🔔 Kürzliche Aktivitäten</h3>
-
-        <!-- Aktivitätenliste -->
-        <div class="activity">
-            <div class="activity-user">
-                <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
-                <span class="activity-name">Max Mustermann</span>
+    <div class="wrapper">
+        <div class="user-dashboard">
+            <!-- Profilbereich -->
+            <div class="profile-section">
+                <div class="profile-picture">
+                    <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="user-img">
+                </div>
+                <div class="greeting">
+                    <h2>Guten Tag, <span id="user-name">Max Mustermann</span></h2>
+                </div>
             </div>
-            <div class="activity-coins">
-                <span>+50</span>
-            </div>
-        </div>
 
-        <div class="activity">
-            <div class="activity-user">
-                <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
-                <span class="activity-name">Max Mustermann</span>
+            <!-- HTL Coins -->
+            <div class="coins-box">
+                <div class="coins-header">
+                    <span>HTL COINS</span>
+                    <span id="current-date">14. März 2025</span>
+                </div>
+                <div class="coins-count">
+                    <span id="user-coins">500</span>
+                </div>
             </div>
-            <div class="activity-coins">
-                <span>+30</span>
+
+            <!-- Aktivitäten -->
+            <div class="recent-activities">
+                <h3>🔔 Kürzliche Aktivitäten</h3>
+
+                <!-- Beispiel-Aktivitäten -->
+                <div class="activity">
+                    <div class="activity-user">
+                        <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
+                        <span class="activity-name">Max Mustermann</span>
+                    </div>
+                    <div class="activity-coins">
+                        <span>+50</span>
+                    </div>
+                </div>
+
+                <!-- Weitere Aktivitäten ... -->
             </div>
         </div>
 
-        <div class="activity">
-            <div class="activity-user">
-                <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
-                <span class="activity-name">Max Mustermann</span>
-            </div>
-            <div class="activity-coins">
-                <span>+70</span>
-            </div>
-        </div>
-
-        <div class="activity">
-            <div class="activity-user">
-                <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
-                <span class="activity-name">Max Mustermann</span>
-            </div>
-            <div class="activity-coins">
-                <span>+40</span>
-            </div>
-        </div>
-
-        <div class="activity">
-            <div class="activity-user">
-                <img src="../Ressourcen/Images/Profile.png" alt="Profilbild" class="activity-img">
-                <span class="activity-name">Max Mustermann</span>
-            </div>
-            <div class="activity-coins">
-                <span>+20</span>
-            </div>
+        <!-- Navigation -->
+        <div class="footer-navigation">
+            <a href="UserPage.html" class="nav-item">
+                <img src="../Ressourcen/Images/HomeIcon.png" alt="Home" class="nav-icon">
+            </a>
+            <a href="Overview.html" class="nav-item">
+                <img src="../Ressourcen/Images/Search.png" alt="Search" class="nav-icon">
+            </a>
+            <a href="Profil.html" class="nav-item">
+                <img src="../Ressourcen/Images/Profile.png" alt="Profile" class="nav-icon">
+            </a>
         </div>
     </div>
-
-    <!-- Navigationssymbole am unteren Rand -->
-    <div class="footer-navigation">
-        <a href="UserPage.html" class="nav-item">
-            <img src="../Ressourcen/Images/HomeIcon.png" alt="Home" class="nav-icon">
-        </a>
-        <a href="Overview.html" class="nav-item">
-            <img src="../Ressourcen/Images/Search.png" alt="Search" class="nav-icon">
-        </a>
-        <a href="Profil.html" class="nav-item">
-            <img src="../Ressourcen/Images/Profile.png" alt="Profile" class="nav-icon">
-        </a>
-    </div>
-</div>
-
 </body>
 </html>
