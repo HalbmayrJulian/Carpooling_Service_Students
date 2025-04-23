@@ -4,8 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Konto erstellen</title>
-    <link rel="stylesheet" href="../Ressourcen/Stylesheet.css"> <!-- Hier den korrekten Pfad zur CSS-Datei angeben -->
-    <script src="../Ressourcen/JavaScript.js"></script> 
+    <link rel="stylesheet" href="../Ressourcen/Stylesheet.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('../Ressourcen/Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .register-container {
+            max-width: 500px;
+            margin: 60px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .input-field {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-field label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .input-field input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        .continue-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #3498db;
+            color: white;
+            font-size: 1em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .continue-button:hover {
+            background-color: #2980b9;
+        }
+
+        .back-link {
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+    <script src="../Ressourcen/JavaScript.js"></script>
 </head>
 <body onload="getAllPersons()">
 
@@ -19,7 +92,7 @@
         </div>
 
         <div class="input-field">
-            <label for="password">Password</label>
+            <label for="password">Passwort</label>
             <input type="password" id="password" name="password" required>
         </div>
 
@@ -31,7 +104,6 @@
         <button type="submit" class="continue-button">Weiter</button>
     </form>
 
-    <!-- Zurück-Link -->
     <div class="back-link">
         <a href="./Login.html">Zurück zur Login-Seite</a>
     </div>
