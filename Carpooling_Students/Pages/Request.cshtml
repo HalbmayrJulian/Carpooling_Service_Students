@@ -1,0 +1,169 @@
+﻿@page
+@model Request_cs
+@{
+    ViewData["Title"] = "Mitfahr-Anfragen";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Anfragen</title>
+    <link rel="stylesheet" href="~/css/Stylesheet.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: url('..//Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .requests-container {
+            max-width: 800px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .request-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f4f4f4;
+            padding: 15px 20px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .request-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .request-info span {
+                font-size: 1em;
+                color: #2c3e50;
+            }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .accept, .decline {
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .accept {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .decline {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .accept:hover {
+            background-color: #27ae60;
+        }
+
+        .decline:hover {
+            background-color: #c0392b;
+        }
+
+        .back-button {
+            display: block;
+            margin: 40px auto 0 auto;
+            padding: 15px 30px;
+            background-color: #e0e0e0;
+            color: #2c3e50;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+            .back-button:hover {
+                background-color: #c7c7c7;
+            }
+    </style>
+</head>
+<body>
+    <div class="requests-container">
+        <h1>Mitfahr-Anfragen</h1>
+        <div id="request-list"></div>
+
+        <button class="back-button" onclick="location.href='@Url.Page("/Profil")'">Zurück</button>
+    </div>
+
+    <script>
+        let requests = JSON.parse(localStorage.getItem("rideRequests")) || [
+            { name: "Lisa Beispiel", pickup: "Waidhofen" },
+            { name: "Jonas Fahrer", pickup: "Linz" },
+            { name: "Anna Mobil", pickup: "Krems" }
+        ];
+
+        const container = document.getElementById("request-list");
+
+        function renderRequests() {
+            container.innerHTML = "";
+
+            if (requests.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#7f8c8d;">Keine Anfragen vorhanden.</p>';
+                return;
+            }
+
+            requests.forEach((req, index) => {
+                const div = document.createElement("div");
+                div.className = "request-box";
+                div.innerHTML = `
+                    <div class="request-info">
+                        <span><strong>${req.name}</strong></span>
+                        <span>Abholort: ${req.pickup}</span>
+                    </div>
+                    <div class="actions">
+                        <button class="accept" onclick="acceptRequest(${index})">✔</button>
+                        <button class="decline" onclick="declineRequest(${index})">✖</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function acceptRequest(index) {
+            alert(`${requests[index].name} wurde angenommen.`);
+            requests.splice(index, 1);
+            localStorage.setItem("rideRequests", JSON.stringify(requests));
+            renderRequests();
+        }
+
+        function declineRequest(index) {
+            if (confirm("Möchtest du diese Anfrage ablehnen?")) {
+                requests.splice(index, 1);
+                localStorage.setItem("rideRequests", JSON.stringify(requests));
+                renderRequests();
+            }
+        }
+
+        renderRequests();
+    </script>
+</body>
+</html>

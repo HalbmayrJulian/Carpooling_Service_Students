@@ -1,0 +1,132 @@
+﻿@page
+@model FahrtErstellenModel
+@{
+    ViewData["Title"] = "Fahrt erstellen";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8" />
+    <title>Fahrt erstellen</title>
+    <style>
+        body {
+            background-image: url('..//Images/Background2.jpg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        .container {
+            background-color: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            margin: 100px auto;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 6px;
+                font-weight: bold;
+                font-size: 14px;
+            }
+
+            .form-group input,
+            .form-group select {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                font-size: 14px;
+                box-sizing: border-box;
+            }
+
+                .form-group input:focus,
+                .form-group select:focus {
+                    outline: none;
+                    border-color: #2196F3;
+                    box-shadow: 0 0 5px rgba(33, 150, 243, 0.3);
+                }
+
+        .button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .button-primary {
+            background-color: #2196F3;
+            color: white;
+        }
+
+            .button-primary:hover {
+                background-color: #1976D2;
+            }
+
+        .button-secondary {
+            background-color: #e0e0e0;
+            color: #333;
+        }
+
+            .button-secondary:hover {
+                background-color: #c7c7c7;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 Fahrt erstellen</h1>
+
+        <form method="post">
+            <div class="form-group">
+                <label for="start">Startort</label>
+                <input type="text" id="start" name="Start" placeholder="z. B. Linz Hauptbahnhof" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ziel">Zielort</label>
+                <input type="text" id="ziel" name="Ziel" placeholder="z. B. HTL Wels" required>
+            </div>
+
+            <div class="form-group">
+                <label for="zeit">Datum & Uhrzeit</label>
+                <input type="datetime-local" id="zeit" name="Zeit" required>
+            </div>
+
+            <div class="form-group">
+                <label for="plaetze">Freie Plätze</label>
+                <select id="plaetze" name="Plaetze">
+                    <option value="1">1 Platz</option>
+                    <option value="2">2 Plätze</option>
+                    <option value="3">3 Plätze</option>
+                    <option value="4">4 Plätze</option>
+                </select>
+            </div>
+
+            <button type="submit" class="button button-primary">Fahrt speichern</button>
+        </form>
+
+        <button class="button button-secondary" onclick="location.href='@Url.Page("/Overview")'">Zurück</button>
+    </div>
+</body>
+</html>

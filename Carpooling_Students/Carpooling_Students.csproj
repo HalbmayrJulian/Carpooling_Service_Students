@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\Auto.png" />
+    <None Include="wwwroot\Images\Background2.jpg" />
+    <None Include="wwwroot\Images\HomeIcon.png" />
+    <None Include="wwwroot\Images\HTLWYLogo.png" />
+    <None Include="wwwroot\Images\Profile.png" />
+    <None Include="wwwroot\Images\Search.png" />
+    <None Include="wwwroot\Images\shoppingcart.jpg" />
+    <None Include="wwwroot\js\JavaScript.js" />
+    <None Include="wwwroot\css\Stylesheet.css" />
+  </ItemGroup>
+
+</Project>

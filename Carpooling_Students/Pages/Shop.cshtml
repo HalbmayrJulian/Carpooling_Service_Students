@@ -1,0 +1,200 @@
+﻿@page
+@model Shop_cs
+@{
+    ViewData["Title"] = "Shop";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <link rel="stylesheet" href="~/css/Stylesheet.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: url('..//Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .shop-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .shop-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .shop-logo-title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+            .shop-logo-title img {
+                height: 60px;
+            }
+
+            .shop-logo-title h1 {
+                margin: 0;
+                color: #2c3e50;
+            }
+
+        .cart-icon {
+            width: 40px;
+            cursor: pointer;
+        }
+
+        .coin-balance {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .item-card {
+            background: #f8f8f8;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: transform 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+            .item-card:hover {
+                transform: translateY(-5px);
+                background: #eaf6ff;
+            }
+
+            .item-card h3 {
+                margin-top: 0;
+                color: #2c3e50;
+            }
+
+            .item-card p {
+                color: #555;
+                font-size: 0.95em;
+            }
+
+        .item-price {
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+
+        .add-button {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+            .add-button:hover {
+                background-color: #2980b9;
+            }
+
+        .back-button {
+            display: block;
+            margin: 50px auto 0 auto;
+            padding: 15px 30px;
+            background-color: #e0e0e0;
+            color: #2c3e50;
+            border: none;
+            border-radius: 10px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+            .back-button:hover {
+                background-color: #c7c7c7;
+            }
+    </style>
+    <script>
+        function addToCart(itemName, price) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ name: itemName, price: price });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(itemName + " wurde zum Warenkorb hinzugefügt!");
+        }
+
+        function displayCoins() {
+            const balance = parseInt(localStorage.getItem("coins")) || 120;
+            document.getElementById("coinDisplay").innerText = "Dein Guthaben: " + balance + " Coins";
+        }
+
+        window.onload = displayCoins;
+    </script>
+</head>
+<body>
+    <div class="shop-container">
+        <div class="shop-header">
+            <div class="shop-logo-title">
+                <img src="~/Images/HTLWYLogo.png" alt="HTL Logo">
+                <h1>Shop</h1>
+            </div>
+            <a href="@Url.Page("/shopping-cart")">
+                <img src="~/Images/shoppingcart.jpg" alt="Warenkorb" class="cart-icon">
+            </a>
+        </div>
+
+        <div class="coin-balance" id="coinDisplay">Dein Guthaben: 120 Coins</div>
+
+        <div class="items-grid">
+            <div class="item-card">
+                <h3>🎁 50% Gutschein</h3>
+                <p>Erhalte 50% Rabatt auf einen Einkauf im Schulkiosk.</p>
+                <div class="item-price">Preis: 80 Coins</div>
+                <button class="add-button" onclick="addToCart('50% Gutschein', 80)">In den Warenkorb</button>
+            </div>
+
+            <div class="item-card">
+                <h3>🎁 20% Gutschein</h3>
+                <p>Spare 20% auf ausgewählte Produkte in der Kantine.</p>
+                <div class="item-price">Preis: 60 Coins</div>
+                <button class="add-button" onclick="addToCart('20% Gutschein', 60)">In den Warenkorb</button>
+            </div>
+
+            <div class="item-card">
+                <h3>🎁 10% Gutschein</h3>
+                <p>Einlösbar im Copy-Shop der HTL – günstiger drucken!</p>
+                <div class="item-price">Preis: 40 Coins</div>
+                <button class="add-button" onclick="addToCart('10% Gutschein', 40)">In den Warenkorb</button>
+            </div>
+
+            <div class="item-card">
+                <h3>🎁 Gratis Menü</h3>
+                <p>Ein kostenloses Hauptgericht in der Kantine – Mahlzeit!</p>
+                <div class="item-price">Preis: 100 Coins</div>
+                <button class="add-button" onclick="addToCart('Gratis Menü', 100)">In den Warenkorb</button>
+            </div>
+        </div>
+
+        <button class="back-button" onclick="location.href='@Url.Page("/Overview")'">Zurück</button>
+    </div>
+</body>
+</html>

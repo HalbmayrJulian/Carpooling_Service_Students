@@ -1,0 +1,37 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    Layout = null; // Entfernen, wenn du ein Layout verwendest
+}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commute Together</title>
+    <link rel="stylesheet" href="~/css/Stylesheet.css" />
+</head>
+<body>
+
+    <!-- Overlay für Transparenzeffekt -->
+    <div class="overlay"></div>
+
+    <div class="container">
+        <!-- HTL Logo oben mittig -->
+        <img src="~/Images/HTLWYLogo.png" alt="HTL Logo" class="htl-logo" />
+
+        <h1>Commute Together</h1>
+        <p class="subtitle">Get to meet new People</p>
+        <img src="~/Images/Auto.png" alt="Auto nach links" class="car-image" />
+
+        <!-- Der Button ist nun ein Link -->
+        <a href="~/Login">
+            <button class="go-button">Let's go!</button>
+        </a>
+    </div>
+
+    <script src="~/js/JavaScript.js"></script>
+</body>
+</html>

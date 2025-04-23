@@ -1,0 +1,230 @@
+﻿@page
+@model UserPage_cs
+@{
+    ViewData["Title"] = "User Startseite";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Startseite</title>
+    <script src="~/js/JavaScript.js" defer></script>
+    <link rel="stylesheet" href="~/css/Stylesheet.css" />
+    <style>
+        /* CSS exakt wie im Original, aus Platzgründen gekürzt hier */
+        /* Du kannst hier dein CSS wie gehabt belassen */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('..//Images/Background2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .wrapper {
+            max-width: 800px;
+            width: 100%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .user-dashboard {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            width: 100%;
+            margin-bottom: 100px;
+            box-shadow: 0 4px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-section {
+            display: flex;
+            align-items: center;
+            padding: 30px 40px;
+            background-color: #3e4e5e;
+            color: white;
+        }
+
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 30px;
+        }
+
+        .user-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .greeting h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .coins-box {
+            padding: 30px;
+            background-color: #fafafa;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .coins-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 20px;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .coins-count {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2d75d9;
+        }
+
+        .recent-activities {
+            padding: 0 30px 30px;
+        }
+
+            .recent-activities h3 {
+                font-size: 22px;
+                margin-bottom: 20px;
+                color: #333;
+                font-weight: 600;
+            }
+
+        .activity {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            background-color: #f1f1f1;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+            .activity:hover {
+                background-color: #e0f2ff;
+                transform: translateY(-5px);
+            }
+
+        .activity-user {
+            display: flex;
+            align-items: center;
+        }
+
+        .activity-img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .activity-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .activity-coins {
+            font-weight: 700;
+            color: #2d75d9;
+        }
+
+        .footer-navigation {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 15px 0;
+            border-top: 1px solid #ddd;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .nav-icon {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: invert(60%);
+            transition: transform 0.3s ease-in-out;
+        }
+
+            .nav-icon:hover {
+                transform: scale(1.1);
+            }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="user-dashboard">
+            <div class="profile-section">
+                <div class="profile-picture">
+                    <img src="~/Images/Profile.png" alt="Profilbild" class="user-img" />
+                </div>
+                <div class="greeting">
+                    <h2>Guten Tag, <span id="user-name">Max Mustermann</span></h2>
+                </div>
+            </div>
+
+            <div class="coins-box">
+                <div class="coins-header">
+                    <span>HTL COINS</span>
+                    <span id="current-date">@DateTime.Now.ToString("dd. MMMM yyyy")</span>
+                </div>
+                <div class="coins-count">
+                    <span id="user-coins">500</span>
+                </div>
+            </div>
+
+            <div class="recent-activities">
+                <h3>🔔 Kürzliche Aktivitäten</h3>
+
+                <div class="activity">
+                    <div class="activity-user">
+                        <img src="~/Images/Profile.png" alt="Profilbild" class="activity-img" />
+                        <span class="activity-name">Max Mustermann</span>
+                    </div>
+                    <div class="activity-coins">
+                        <span>+50</span>
+                    </div>
+                </div>
+
+                <!-- Weitere Aktivitäten ... -->
+            </div>
+        </div>
+
+        <div class="footer-navigation">
+            <a href="@Url.Page("/UserPage")" class="nav-item">
+                <img src="~/Images/HomeIcon.png" alt="Home" class="nav-icon" />
+            </a>
+            <a href="@Url.Page("/Overview")" class="nav-item">
+                <img src="~/Images/Search.png" alt="Search" class="nav-icon" />
+            </a>
+            <a href="@Url.Page("/Profil")" class="nav-item">
+                <img src="~/Images/Profile.png" alt="Profile" class="nav-icon" />
+            </a>
+        </div>
+    </div>
+</body>
+</html>
