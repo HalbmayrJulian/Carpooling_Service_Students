@@ -137,6 +137,12 @@
                 <label for="password">Passwort</label>
                 <input type="password" id="password" name="Password" required>
             </div>
+            @if (!string.IsNullOrEmpty(Model.Fehler))
+            {
+                <div style="color: red; margin-bottom: 10px;">
+                    @Model.Fehler
+                </div>
+            }
 
             <button type="submit" class="signin-button">Sign In</button>
         </form>

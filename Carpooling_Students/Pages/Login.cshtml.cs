@@ -1,28 +1,47 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc;
+using System.Text.RegularExpressions;
 
 public class Login_cs : PageModel
 {
+    private readonly CarpoolContext _db;
+
+    public Login_cs(CarpoolContext db)
+    {
+        _db = db;
+    }
+
+    private Regex htlwyEmail= new Regex(@"^[a-z\.a-z]+@htlwy\.at$");
+
     [BindProperty]
     public string Email { get; set; }
 
     [BindProperty]
     public string Password { get; set; }
 
+    public string Fehler { get; set; }
+
     public void OnGet()
     {
-        // Wird aufgerufen, wenn die Seite geladen wird
+        
     }
 
     public IActionResult OnPost()
     {
-        // Hier später Logik zur Benutzerprüfung einbauen (z. B. DB-Abfrage)
-        if (Email == "admin@example.com" && Password == "1234")
-        {
-            return RedirectToPage("/UserPage");
-        }
+        if (htlwyEmail.IsMatch(Email)) {
+            var person = _db.Personen
+                .FirstOrDefault(p => p.Email == Email && p.Password == Password);
 
-        ModelState.AddModelError(string.Empty, "Ungültige Anmeldedaten.");
+            if (person != null)
+            {
+                Fehler = string.Empty;
+                return RedirectToPage("/UserPage");
+            }
+            Fehler = "Ungültige Anmeldedaten.";
+        }
+        else 
+            Fehler = "Ungültige Email.";
+
         return Page();
     }
 }

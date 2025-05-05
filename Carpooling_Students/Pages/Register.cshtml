@@ -106,6 +106,12 @@
                 <label for="address">Adresse (wo du wohnst)</label>
                 <input type="text" id="address" name="Address" required />
             </div>
+            @if (!string.IsNullOrEmpty(Model.Fehler))
+            {
+                <div style="color: red; margin-bottom: 10px;">
+                    @Model.Fehler
+                </div>
+            }
 
             <button type="submit" class="continue-button">Weiter</button>
         </form>
