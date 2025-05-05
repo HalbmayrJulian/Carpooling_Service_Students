@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace Carpooling_Students
 {
     public class Program
@@ -8,6 +10,10 @@ namespace Carpooling_Students
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+
+            builder.Services.AddDbContext<CarpoolContext>(options =>
+            options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
             var app = builder.Build();
 
