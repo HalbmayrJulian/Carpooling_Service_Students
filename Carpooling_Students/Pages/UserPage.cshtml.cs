@@ -1,10 +1,30 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Carpooling_Students.Model;
 
 public class UserPage_cs : PageModel
 {
-    public void OnGet()
+    private readonly CarpoolContext _context;
+
+    public UserPage_cs(CarpoolContext context)
     {
-        // Beispiel: Daten aus Session laden oder Coins setzen
-        // ViewData["Coins"] = HttpContext.Session.GetInt32("Coins") ?? 0;
+        _context = context;
+    }
+
+    public Person AngemeldetePerson { get; set; }
+
+    public IActionResult OnGet()
+    {
+        int? userId = HttpContext.Session.GetInt32("UserId");
+
+        if (userId == null)
+            return RedirectToPage("/Login");
+
+        AngemeldetePerson = _context.Personen.FirstOrDefault(p => p.PersonId == userId);
+
+        if (AngemeldetePerson == null)
+            return RedirectToPage("/Login");
+
+        return Page();
     }
 }

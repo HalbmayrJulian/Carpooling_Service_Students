@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
+    <Content Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\Images\Auto.png" />
     <None Include="wwwroot\Images\Background2.jpg" />
     <None Include="wwwroot\Images\HomeIcon.png" />

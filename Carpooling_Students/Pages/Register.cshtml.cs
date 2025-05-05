@@ -48,8 +48,10 @@ public class Register_cs : PageModel
             Fehler = "Ungültige E-Mail-Adresse.";
             return Page();
         }
+
         var nameTeil = Email.Substring(0, Email.IndexOf('@')).Replace('.', ' ');
-        var name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(nameTeil);
+        var name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(nameTeil.ToLower());
+
 
         var person = new Person
         {
@@ -63,6 +65,7 @@ public class Register_cs : PageModel
 
         _context.Personen.Add(person);
         _context.SaveChanges();
+        HttpContext.Session.SetInt32("UserId", person.PersonId); 
 
         return RedirectToPage("/UserPage");
     }

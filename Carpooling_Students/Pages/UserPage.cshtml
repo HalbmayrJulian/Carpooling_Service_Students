@@ -14,8 +14,6 @@
     <script src="~/js/JavaScript.js" defer></script>
     <link rel="stylesheet" href="~/css/Stylesheet.css" />
     <style>
-        /* CSS exakt wie im Original, aus Platzgründen gekürzt hier */
-        /* Du kannst hier dein CSS wie gehabt belassen */
         body {
             font-family: 'Arial', sans-serif;
             background: url('..//Images/Background2.jpg') no-repeat center center fixed;
@@ -183,7 +181,7 @@
                     <img src="~/Images/Profile.png" alt="Profilbild" class="user-img" />
                 </div>
                 <div class="greeting">
-                    <h2>Guten Tag, <span id="user-name">Max Mustermann</span></h2>
+                    <h2>Guten Tag, <span id="user-name">@Model.AngemeldetePerson.Name</span></h2>
                 </div>
             </div>
 
@@ -193,7 +191,7 @@
                     <span id="current-date">@DateTime.Now.ToString("dd. MMMM yyyy")</span>
                 </div>
                 <div class="coins-count">
-                    <span id="user-coins">500</span>
+                    <span id="user-coins">@Model.AngemeldetePerson.Coins</span>
                 </div>
             </div>
 
@@ -203,10 +201,10 @@
                 <div class="activity">
                     <div class="activity-user">
                         <img src="~/Images/Profile.png" alt="Profilbild" class="activity-img" />
-                        <span class="activity-name">Max Mustermann</span>
+                        <span class="activity-name">@Model.AngemeldetePerson.Name</span>
                     </div>
                     <div class="activity-coins">
-                        <span>+50</span>
+                        <span>+@Model.AngemeldetePerson.Coins</span>
                     </div>
                 </div>
 

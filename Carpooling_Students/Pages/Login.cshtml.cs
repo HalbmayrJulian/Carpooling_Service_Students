@@ -25,6 +25,7 @@ public class Login_cs : PageModel
     {
         
     }
+    
 
     public IActionResult OnPost()
     {
@@ -35,6 +36,7 @@ public class Login_cs : PageModel
             if (person != null)
             {
                 Fehler = string.Empty;
+                HttpContext.Session.SetInt32("UserId", person.PersonId); // Nach erfolgreichem Login oder Registrierung
                 return RedirectToPage("/UserPage");
             }
             Fehler = "Ungültige Anmeldedaten.";
