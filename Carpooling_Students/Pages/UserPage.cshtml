@@ -198,18 +198,27 @@
             <div class="recent-activities">
                 <h3>🔔 Kürzliche Aktivitäten</h3>
 
-                <div class="activity">
-                    <div class="activity-user">
-                        <img src="~/Images/Profile.png" alt="Profilbild" class="activity-img" />
-                        <span class="activity-name">@Model.AngemeldetePerson.Name</span>
-                    </div>
-                    <div class="activity-coins">
-                        <span>+@Model.AngemeldetePerson.Coins</span>
-                    </div>
-                </div>
-
-                <!-- Weitere Aktivitäten ... -->
+                @if (Model.LetzteFahrten != null && Model.LetzteFahrten.Any())
+                {
+                    foreach (var fahrt in Model.LetzteFahrten)
+                    {
+                        <div class="activity">
+                            <div class="activity-user">
+                                <img src="~/Images/Profile.png" alt="Profilbild" class="activity-img" />
+                                <span class="activity-name">@Model.AngemeldetePerson.Name</span>
+                            </div>
+                            <div class="activity-coins">
+                                <span>@fahrt.StartDatum.ToString("dd.MM.yyyy") – @fahrt.Route?.StartOrt ➝ @fahrt.Route?.ZielOrt</span>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p style="text-align: center; color: gray;">Keine Aktivitäten gefunden.</p>
+                }
             </div>
+
         </div>
 
         <div class="footer-navigation">
