@@ -12,8 +12,8 @@ public class CarpoolContext : DbContext
     public DbSet<Shop> Shops { get; set; }
     public DbSet<Item> Items { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
-        base.OnConfiguring(optionsBuilder);
+        options.UseSqlite("Data Source=./carpool.db;");
     }
 }

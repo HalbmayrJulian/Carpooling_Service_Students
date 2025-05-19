@@ -10,8 +10,7 @@ namespace Carpooling_Students
 
             builder.Services.AddRazorPages();
 
-            builder.Services.AddDbContext<CarpoolContext>(options =>
-                options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContext<CarpoolContext>();
 
             builder.Services.AddSession(); 
 

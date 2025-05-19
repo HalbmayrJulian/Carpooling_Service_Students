@@ -9,9 +9,9 @@ public class UserPage_cs : PageModel
 {
     private readonly CarpoolContext _context;
 
-    public UserPage_cs(CarpoolContext context)
+    public UserPage_cs()
     {
-        _context = context;
+        _context = new CarpoolContext();
     }
 
     public Person AngemeldetePerson { get; set; }
