@@ -1,6 +1,4 @@
-﻿using System.Data.Entity.Core.Metadata.Edm;
-
-namespace Carpooling_Students.Model
+﻿namespace Carpooling_Students.Model
 {
     public class Person
     {

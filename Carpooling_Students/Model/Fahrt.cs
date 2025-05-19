@@ -4,7 +4,7 @@ public abstract class Fahrt
 {
     public int FahrtId { get; set; }
     public DateTime StartDatum { get; set; }
-    public DateTime EndDatum { get; }
+    public DateTime EndDatum { get; set; }
     public bool Abgeschlossen { get; set; }
 
     public Person Fahrer { get; set; }
