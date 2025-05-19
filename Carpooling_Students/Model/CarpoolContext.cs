@@ -12,7 +12,8 @@ public class CarpoolContext : DbContext
     public DbSet<Shop> Shops { get; set; }
     public DbSet<Item> Items { get; set; }
 
-    public CarpoolContext(DbContextOptions<CarpoolContext> options): base(options)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        base.OnConfiguring(optionsBuilder);
     }
 }
