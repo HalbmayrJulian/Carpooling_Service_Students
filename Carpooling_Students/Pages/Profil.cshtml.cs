@@ -1,10 +1,19 @@
+using Carpooling_Students.Model;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 public class Profil_cs : PageModel
 {
+    private readonly CarpoolContext _context;
+    public Person user { get; set; }
+    public string Benutzername => user?.Name ?? "Unbekannter Nutzer";
+
+    public Profil_cs(CarpoolContext context)
+    {
+        _context = context;
+    }
     public void OnGet()
     {
-        // Optional: Benutzername dynamisch laden z.?B. aus Session oder DB
-        // Beispiel: ViewData["Username"] = HttpContext.Session.GetString("User");
+        int? userId = HttpContext.Session.GetInt32("UserId");
+        user = _context.Personen.FirstOrDefault(p => p.PersonId == userId);
     }
 }

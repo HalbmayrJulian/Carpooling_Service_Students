@@ -35,7 +35,7 @@ public class UserPage_cs : PageModel
             .Include(f => f.Route)
             .Where(f => f.Fahrer.PersonId == userId)
             .OrderByDescending(f => f.StartDatum)
-            .Take(5)
+            .Take(3)
             .ToList();
 
         return Page();

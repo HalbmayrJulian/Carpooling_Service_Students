@@ -114,7 +114,8 @@
 <body>
     <div class="profile-container">
         <img src="~/Images/Profile.png" alt="Profilbild" class="profile-picture" />
-        <div class="username">Max Mustermann</div>
+        <div class="username">@Model.Benutzername</div>
+
 
         <div class="button-group">
             <button class="profile-button" onclick="location.href='@Url.Page("/MyRides")'">🚗 Meine Fahrten</button>
