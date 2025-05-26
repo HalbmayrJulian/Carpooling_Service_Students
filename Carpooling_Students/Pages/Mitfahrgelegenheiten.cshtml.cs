@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
+using System.Linq;
 
 public class Mitfahrgelegenheiten_cs : PageModel
 {
@@ -18,14 +19,14 @@ public class Mitfahrgelegenheiten_cs : PageModel
     public void OnGet()
     {
         int? userId = HttpContext.Session.GetInt32("UserId");
-        var user = _context.Personen.FirstOrDefault(p => p.PersonId == userId);
-
         if (userId != null)
         {
             Autofahrten = _context.Fahrten
                 .Include(f => f.Route)
                 .Include(f => f.Fahrer)
-                .Where(f => f.Passagiere.Contains(user))
+                .Include(f => f.FahrtPassagiere)
+                    .ThenInclude(fp => fp.Passagier)
+                .Where(f => f.FahrtPassagiere.Any(fp => fp.Passagier.PersonId == userId))
                 .ToList();
         }
     }
