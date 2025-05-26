@@ -132,7 +132,7 @@
         {
             foreach (var fahrt in Model.Fahrten)
             {
-                var freiePlaetze = fahrt.Sitze - fahrt.Passagiere.Count;
+                var freiePlaetze = fahrt.Sitze - fahrt.FahrtPassagiere.Count;
                 <div class="ride-entry" onclick="selectRide(this, @fahrt.FahrtId)">
                     <img src="~/Images/Profile.png" alt="Profilbild">
                     <div class="ride-info">

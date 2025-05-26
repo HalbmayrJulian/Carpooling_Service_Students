@@ -14,36 +14,57 @@ public class JoinDrive_cs : PageModel
         _context = context;
     }
 
-    public async Task OnGetAsync()
+    [BindProperty]
+    public int FahrtId { get; set; }
+
+    public async Task<IActionResult> OnGetAsync()
     {
         int? userId = HttpContext.Session.GetInt32("UserId");
+        if (userId == null)
+        {
+            return RedirectToPage("/Login");
+        }
+
         var aktuellerBenutzer = await _context.Personen
             .FirstOrDefaultAsync(p => p.PersonId == userId);
 
-        Fahrten = _context.Fahrten
+        if (aktuellerBenutzer == null)
+        {
+            return Unauthorized();
+        }
+
+        Fahrten = await _context.Fahrten
             .Include(f => f.Route)
             .Include(f => f.Fahrer)
-            .Include(f => f.Passagiere)
-            .Where(f => !f.Abgeschlossen && f.EndDatum > DateTime.Now && f.Fahrer!=aktuellerBenutzer)
-            .ToList();
-    }
+            .Include(f => f.FahrtPassagiere)
+                .ThenInclude(fp => fp.Passagier)
+            .Where(f => !f.Abgeschlossen &&
+                        f.EndDatum > DateTime.Now &&
+                        f.Fahrer.PersonId != aktuellerBenutzer.PersonId)
+            .ToListAsync();
 
-    [BindProperty]
-    public int FahrtId { get; set; }
+        return Page();
+    }
 
     public async Task<IActionResult> OnPostAsync()
     {
         int? userId = HttpContext.Session.GetInt32("UserId");
+        if (userId == null)
+        {
+            return RedirectToPage("/Login");
+        }
+
         var aktuellerBenutzer = await _context.Personen
-            .FirstOrDefaultAsync(p => p.PersonId==userId);
+            .FirstOrDefaultAsync(p => p.PersonId == userId);
+
         if (aktuellerBenutzer == null)
         {
             return Unauthorized();
         }
 
         var fahrt = await _context.Fahrten
-            .Include(f => f.Passagiere)
-            .Include(f => f.Fahrer)
+            .Include(f => f.FahrtPassagiere)
+                .ThenInclude(fp => fp.Passagier)
             .FirstOrDefaultAsync(f => f.FahrtId == FahrtId);
 
         if (fahrt == null)
@@ -51,12 +72,26 @@ public class JoinDrive_cs : PageModel
             return NotFound("Fahrt nicht gefunden.");
         }
 
-        if (fahrt.Passagiere.Count >= fahrt.Sitze)
+        if (fahrt.FahrtPassagiere.Any(fp => fp.Passagier.PersonId == aktuellerBenutzer.PersonId))
         {
-            ModelState.AddModelError("", "Keine Plätze mehr verfügbar.");
+            ModelState.AddModelError("", "Du bist bereits für diese Fahrt angemeldet.");
+            await OnGetAsync(); // Damit Fahrten erneut geladen werden
             return Page();
         }
-        fahrt.Passagiere.Add(aktuellerBenutzer);
+
+        if (fahrt.FahrtPassagiere.Count >= fahrt.Sitze)
+        {
+            ModelState.AddModelError("", "Keine Plätze mehr verfügbar.");
+            await OnGetAsync();
+            return Page();
+        }
+
+        fahrt.FahrtPassagiere.Add(new FahrtPassagier
+        {
+            Fahrt = fahrt,
+            Passagier = aktuellerBenutzer
+        });
+
         await _context.SaveChangesAsync();
 
         TempData["Erfolg"] = "Du wurdest erfolgreich angemeldet.";
