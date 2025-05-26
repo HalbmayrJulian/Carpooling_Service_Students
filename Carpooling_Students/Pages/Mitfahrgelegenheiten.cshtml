@@ -43,7 +43,7 @@
             border-radius: 12px;
             margin-bottom: 15px;
             transition: background 0.3s, transform 0.2s;
-            cursor: pointer;
+            cursor: default;
         }
 
             .ride-box:hover {
@@ -95,55 +95,39 @@
 <body>
     <div class="rides-container">
         <h1>Meine Mitfahrgelegenheiten</h1>
-        <div id="ride-list"></div>
+
+        @if (Model.Autofahrten.Count == 0)
+        {
+            <p style="text-align:center; color: #7f8c8d;">Keine Mitfahrgelegenheiten gefunden.</p>
+        }
+        else
+        {
+            foreach (var ride in Model.Autofahrten)
+            {
+                string typ = ride.Typ switch
+                {
+                    TransportTyp.Auto => "🚗 Autofahrt",
+                    TransportTyp.Moped => "🛵 Moped",
+                    TransportTyp.Fahrrad=> "🚴 Radfahrt",
+                    TransportTyp.Fuß => "🚶 Zu Fuß",
+                    _ => "❓ Unbekannt"
+                };
+
+                <div class="ride-box">
+                    <div class="ride-info">
+                        <strong>@ride.Route.StartOrt → @ride.Route.ZielOrt</strong>
+                        <span>@typ</span>
+                    </div>
+                    <div class="ride-meta">
+                        <span>Datum: @ride.StartDatum.ToString("dd.MM.yyyy")</span>
+                        <span>Uhrzeit: @ride.StartDatum.ToString("HH:mm")</span>
+                        <span>@ride.Passagiere.Count / @ride.Sitze Plätze belegt</span>
+                    </div>
+                </div>
+            }
+        }
 
         <button class="back-button" onclick="location.href='@Url.Page("/Profil")'">Zurück</button>
     </div>
-
-    <script>
-        let rides = JSON.parse(localStorage.getItem("joinedRides")) || [
-            { from: "Wien", to: "Linz", date: "13.04.2025", time: "08:15", seats: "3 / 4" },
-            { from: "St. Pölten", to: "Waidhofen", date: "18.04.2025", time: "09:00", seats: "2 / 3" },
-            { from: "Krems", to: "Amstetten", date: "20.04.2025", time: "07:00", seats: "1 / 5" }
-        ];
-
-        const container = document.getElementById("ride-list");
-
-        function renderRides() {
-            container.innerHTML = "";
-            if (rides.length === 0) {
-                container.innerHTML = '<p style="text-align:center; color: #7f8c8d;">Keine Mitfahrgelegenheiten gefunden.</p>';
-                return;
-            }
-
-            rides.forEach((ride, index) => {
-                const div = document.createElement("div");
-                div.className = "ride-box";
-                div.onclick = () => removeRide(index);
-
-                div.innerHTML = `
-                    <div class="ride-info">
-                        <strong>${ride.from} → ${ride.to}</strong>
-                    </div>
-                    <div class="ride-meta">
-                        <span>Datum: ${ride.date}</span>
-                        <span>Uhrzeit: ${ride.time}</span>
-                        <span>${ride.seats} Plätze belegt</span>
-                    </div>
-                `;
-                container.appendChild(div);
-            });
-        }
-
-        function removeRide(index) {
-            if (confirm("Möchtest du dich wirklich von dieser Fahrt abmelden?")) {
-                rides.splice(index, 1);
-                localStorage.setItem("joinedRides", JSON.stringify(rides));
-                renderRides();
-            }
-        }
-
-        renderRides();
-    </script>
 </body>
 </html>
