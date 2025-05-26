@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,12 +10,35 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Carpooling_Students.Migrations
 {
     [DbContext(typeof(CarpoolContext))]
-    partial class CarpoolContextModelSnapshot : ModelSnapshot
+    [Migration("20250526072212_UpdateAutofahrt")]
+    partial class UpdateAutofahrt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
+
+            modelBuilder.Entity("AutofahrtPassagier", b =>
+                {
+                    b.Property<int>("AutofahrtPassagierId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("AutofahrtFahrtId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PassagierPersonId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("AutofahrtPassagierId");
+
+                    b.HasIndex("AutofahrtFahrtId");
+
+                    b.HasIndex("PassagierPersonId");
+
+                    b.ToTable("AutofahrtPassagiere");
+                });
 
             modelBuilder.Entity("Carpooling_Students.Model.Person", b =>
                 {
@@ -33,9 +57,6 @@ namespace Carpooling_Students.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("FahrtId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("GesamtDistanz")
                         .HasColumnType("INTEGER");
 
@@ -48,8 +69,6 @@ namespace Carpooling_Students.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("PersonId");
-
-                    b.HasIndex("FahrtId");
 
                     b.ToTable("Personen");
                 });
@@ -89,6 +108,11 @@ namespace Carpooling_Students.Migrations
                     b.Property<bool>("Abgeschlossen")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(21)
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("EndDatum")
                         .HasColumnType("TEXT");
 
@@ -98,14 +122,8 @@ namespace Carpooling_Students.Migrations
                     b.Property<int>("RoutenId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Sitze")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("StartDatum")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("Typ")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("FahrtId");
 
@@ -114,6 +132,10 @@ namespace Carpooling_Students.Migrations
                     b.HasIndex("RoutenId");
 
                     b.ToTable("Fahrten");
+
+                    b.HasDiscriminator().HasValue("Fahrt");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Item", b =>
@@ -150,17 +172,49 @@ namespace Carpooling_Students.Migrations
                     b.ToTable("Shops");
                 });
 
-            modelBuilder.Entity("Carpooling_Students.Model.Person", b =>
+            modelBuilder.Entity("AlternativeFahrt", b =>
                 {
-                    b.HasOne("Fahrt", null)
+                    b.HasBaseType("Fahrt");
+
+                    b.Property<int>("Typ")
+                        .HasColumnType("INTEGER");
+
+                    b.HasDiscriminator().HasValue("AlternativeFahrt");
+                });
+
+            modelBuilder.Entity("Autofahrt", b =>
+                {
+                    b.HasBaseType("Fahrt");
+
+                    b.Property<int>("Sitze")
+                        .HasColumnType("INTEGER");
+
+                    b.HasDiscriminator().HasValue("Autofahrt");
+                });
+
+            modelBuilder.Entity("AutofahrtPassagier", b =>
+                {
+                    b.HasOne("Autofahrt", "Autofahrt")
                         .WithMany("Passagiere")
-                        .HasForeignKey("FahrtId");
+                        .HasForeignKey("AutofahrtFahrtId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Carpooling_Students.Model.Person", "Passagier")
+                        .WithMany("Mitfahrten")
+                        .HasForeignKey("PassagierPersonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Autofahrt");
+
+                    b.Navigation("Passagier");
                 });
 
             modelBuilder.Entity("Fahrt", b =>
                 {
                     b.HasOne("Carpooling_Students.Model.Person", "Fahrer")
-                        .WithMany()
+                        .WithMany("Fahrten")
                         .HasForeignKey("FahrerPersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -183,14 +237,21 @@ namespace Carpooling_Students.Migrations
                         .HasForeignKey("ShopId");
                 });
 
-            modelBuilder.Entity("Fahrt", b =>
+            modelBuilder.Entity("Carpooling_Students.Model.Person", b =>
                 {
-                    b.Navigation("Passagiere");
+                    b.Navigation("Fahrten");
+
+                    b.Navigation("Mitfahrten");
                 });
 
             modelBuilder.Entity("Shop", b =>
                 {
                     b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Autofahrt", b =>
+                {
+                    b.Navigation("Passagiere");
                 });
 #pragma warning restore 612, 618
         }

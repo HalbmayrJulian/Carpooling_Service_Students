@@ -105,62 +105,55 @@
                 background-color: #c7c7c7;
             }
     </style>
+    <script>
+        let selectedRideId = null;
+
+        function selectRide(element, id) {
+            document.querySelectorAll('.ride-entry').forEach(e => e.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedRideId = id;
+            document.getElementById('fahrtId').value = id;
+        }
+
+        function joinSelectedRide() {
+            if (!selectedRideId) {
+                alert("Bitte wähle eine Fahrt aus.");
+                return;
+            }
+            document.getElementById('joinForm').submit();
+        }
+    </script>
 </head>
 <body>
     <div class="join-container">
         <h1>Mitfahrgelegenheiten</h1>
 
-        <div class="ride-entry" onclick="selectRide(this)">
-            <img src="~/Images/Profile.png" alt="Profilbild">
-            <div class="ride-info">
-                <div>Max Mustermann</div>
-                <div class="ride-meta">08:30 Uhr</div>
-                <div>Wien → Linz</div>
-                <div>2/4 Plätze frei</div>
-            </div>
-        </div>
-
-        <div class="ride-entry" onclick="selectRide(this)">
-            <img src="~/Images/Profile.png" alt="Profilbild">
-            <div class="ride-info">
-                <div>Lisa Beispiel</div>
-                <div class="ride-meta">09:15 Uhr</div>
-                <div>St. Pölten → Amstetten</div>
-                <div>1/3 Plätze frei</div>
-            </div>
-        </div>
-
-        <div class="ride-entry" onclick="selectRide(this)">
-            <img src="~/Images/Profile.png" alt="Profilbild">
-            <div class="ride-info">
-                <div>Jonas Fahrer</div>
-                <div class="ride-meta">07:45 Uhr</div>
-                <div>Melk → Krems</div>
-                <div>3/5 Plätze frei</div>
-            </div>
-        </div>
-
-        <button class="join-button" onclick="joinSelectedRide()">Mitfahren</button>
-        <button class="back-button" onclick="location.href='@Url.Page("/Overview")'">Zurück</button>
-    </div>
-
-    <script>
-        let selectedRide = null;
-
-        function selectRide(element) {
-            document.querySelectorAll('.ride-entry').forEach(entry => entry.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedRide = element;
-        }
-
-        function joinSelectedRide() {
-            if (selectedRide) {
-                alert("Du hast eine Mitfahrgelegenheit gewählt! ✨");
-                // hier kannst du später Logik zum Speichern oder Weiterleiten einbauen
-            } else {
-                alert("Bitte wähle zuerst eine Mitfahrgelegenheit aus.");
+        @if (Model.Fahrten.Any())
+        {
+            foreach (var fahrt in Model.Fahrten)
+            {
+                var freiePlaetze = fahrt.Sitze - fahrt.Passagiere.Count;
+                <div class="ride-entry" onclick="selectRide(this, @fahrt.FahrtId)">
+                    <img src="~/Images/Profile.png" alt="Profilbild">
+                    <div class="ride-info">
+                        <div>@fahrt.Fahrer.Name</div>
+                        <div class="ride-meta">@fahrt.StartDatum.ToString("f") Uhr</div>
+                        <div>@fahrt.Route.StartOrt → @fahrt.Route.ZielOrt</div>
+                        <div>@freiePlaetze/@fahrt.Sitze Plätze frei</div>
+                    </div>
+                </div>
             }
         }
-    </script>
+        else
+        {
+            <p>Keine verfügbaren Fahrten gefunden.</p>
+        }
+
+        <form method="post" id="joinForm">
+            <input type="hidden" name="FahrtId" id="fahrtId" />
+            <button type="button" class="join-button" onclick="joinSelectedRide()">Mitfahren</button>
+            <button type="button" class="back-button" onclick="location.href='@Url.Page("/Overview")'">Zurück</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -6,7 +6,7 @@ public class MyRides_cs : PageModel
 {
     private readonly CarpoolContext _context;
 
-    public List<Fahrt> Rides { get; set; } = new();
+    public List<Fahrt> Fahrten { get; set; }
 
     public MyRides_cs(CarpoolContext context)
     {
@@ -15,11 +15,18 @@ public class MyRides_cs : PageModel
 
     public async Task OnGetAsync()
     {
-        Rides = await _context.Fahrten
-        .Include(f => f.Route)
-        .ToListAsync();
+        int? userId = HttpContext.Session.GetInt32("UserId");
+        var aktuellerBenutzer = await _context.Personen
+            .FirstOrDefaultAsync(p => p.PersonId == userId);
 
-        var updateCandidates = Rides.Where(f => f.EndDatum < DateTime.Now && !f.Abgeschlossen).ToList();
+        Fahrten = await _context.Fahrten
+            .Include(f => f.Route)
+            .Include(f => f.Fahrer)
+            .Include(f => f.Passagiere)
+            .Where(f => f.Fahrer == aktuellerBenutzer || f.Passagiere.Contains(aktuellerBenutzer))
+            .ToListAsync();
+
+        var updateCandidates = Fahrten.Where(f => f.EndDatum < DateTime.Now && !f.Abgeschlossen).ToList();
 
         if (updateCandidates.Any())
         {
@@ -30,6 +37,5 @@ public class MyRides_cs : PageModel
 
             await _context.SaveChangesAsync();
         }
-
     }
 }

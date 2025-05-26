@@ -27,13 +27,14 @@ public class FahrtErstellenModel : PageModel
         {
             StartOrt = Start,
             ZielOrt = Ziel,
-            Distanz = 0, // Should be calculated, e.g., using Google Maps API
-            Weg = "" // Placeholder for route description
+            Distanz = 0, // Sollte berechnet werden, z.B. mit Google Maps API
+            Weg = "" // Platzhalter für Routenbeschreibung
         };
-        var Fahrt = new Autofahrt
+
+        var Fahrt = new Fahrt
         {
             StartDatum = Zeit,
-            EndDatum = Zeit.AddHours(10), 
+            EndDatum = Zeit.AddHours(10),
             Abgeschlossen = false,
             Fahrer = _context.Personen.FirstOrDefault(p => p.PersonId == userId),
             Route = Route,
@@ -41,10 +42,10 @@ public class FahrtErstellenModel : PageModel
         };
 
         _context.Routen.Add(Route);
-        _context.Autofahrten.Add(Fahrt);
+        _context.Fahrten.Add(Fahrt);
 
         _context.SaveChanges();
 
-        return RedirectToPage("/UserPage"); // Or success message
+        return RedirectToPage("/UserPage"); // Oder Erfolgsnachricht
     }
 }

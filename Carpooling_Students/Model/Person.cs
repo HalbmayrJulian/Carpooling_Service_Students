@@ -9,8 +9,5 @@
         public string Email { get; set; }
         public int GesamtDistanz { get; set; }
         public int Coins { get; set; }
-
-        public List<Fahrt> Fahrten { get; set; }
-        public List<AutofahrtPassagier> Mitfahrten { get; set; }
     }
 }

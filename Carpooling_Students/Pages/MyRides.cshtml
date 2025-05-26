@@ -113,7 +113,7 @@
         <h1>Meine Fahrten</h1>
         <div id="open-rides-section">
             <h2>🚗 Offene Fahrten</h2>
-            @foreach (var ride in Model.Rides)
+            @foreach (var ride in Model.Fahrten)
             {
                 if (!ride.Abgeschlossen)
                 {
@@ -122,7 +122,7 @@
                             <strong>@ride.Route.StartOrt → @ride.Route.ZielOrt</strong>
                             <span>Startdatum: @ride.StartDatum.ToShortDateString()</span>
                             <span>Uhrzeit: @ride.StartDatum.ToString("HH\\:mm")</span>
-                            @if (ride is Autofahrt fahrt)
+                            @if (ride is Fahrt fahrt)
                             {
                                 <span>@fahrt.Sitze Plätze belegt</span>
                             }
@@ -134,7 +134,7 @@
 
         <div id="closed-rides-section">
             <h2>✅ Abgeschlossene Fahrten</h2>
-            @foreach (var ride in Model.Rides)
+            @foreach (var ride in Model.Fahrten)
             {
                 if (ride.Abgeschlossen)
                 {
@@ -142,7 +142,7 @@
                         <div class="ride-info">
                             <strong>@ride.Route.StartOrt → @ride.Route.ZielOrt</strong>
                             <span>Enddatum: @ride.EndDatum.ToShortDateString()</span>
-                            @if (ride is Autofahrt fahrt)
+                            @if (ride is Fahrt fahrt)
                             {
                                 <span>@fahrt.Sitze Plätze belegt</span>
                             }
