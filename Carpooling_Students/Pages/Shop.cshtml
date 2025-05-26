@@ -1,5 +1,6 @@
 ﻿@page
 @model Shop_cs
+@using Carpooling_Students.Model
 @{
     ViewData["Title"] = "Shop";
     Layout = null;
@@ -12,6 +13,7 @@
     <title>Shop</title>
     <link rel="stylesheet" href="~/css/Stylesheet.css">
     <style>
+        /* Dein ganzes CSS bleibt unverändert */
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
@@ -165,33 +167,15 @@
         <div class="coin-balance" id="coinDisplay">Dein Guthaben: 120 Coins</div>
 
         <div class="items-grid">
-            <div class="item-card">
-                <h3>🎁 50% Gutschein</h3>
-                <p>Erhalte 50% Rabatt auf einen Einkauf im Schulkiosk.</p>
-                <div class="item-price">Preis: 80 Coins</div>
-                <button class="add-button" onclick="addToCart('50% Gutschein', 80)">In den Warenkorb</button>
-            </div>
-
-            <div class="item-card">
-                <h3>🎁 20% Gutschein</h3>
-                <p>Spare 20% auf ausgewählte Produkte in der Kantine.</p>
-                <div class="item-price">Preis: 60 Coins</div>
-                <button class="add-button" onclick="addToCart('20% Gutschein', 60)">In den Warenkorb</button>
-            </div>
-
-            <div class="item-card">
-                <h3>🎁 10% Gutschein</h3>
-                <p>Einlösbar im Copy-Shop der HTL – günstiger drucken!</p>
-                <div class="item-price">Preis: 40 Coins</div>
-                <button class="add-button" onclick="addToCart('10% Gutschein', 40)">In den Warenkorb</button>
-            </div>
-
-            <div class="item-card">
-                <h3>🎁 Gratis Menü</h3>
-                <p>Ein kostenloses Hauptgericht in der Kantine – Mahlzeit!</p>
-                <div class="item-price">Preis: 100 Coins</div>
-                <button class="add-button" onclick="addToCart('Gratis Menü', 100)">In den Warenkorb</button>
-            </div>
+            @foreach (var item in Model.ArtikelListe)
+            {
+                <div class="item-card">
+                    <h3>🎁 @item.Name</h3>
+                    <p>Kein Beschreibungstext vorhanden.</p> <!-- Falls du später Beschreibung willst -->
+                    <div class="item-price">Preis: @item.Price Coins</div>
+                    <button class="add-button" onclick="addToCart('@item.Name', @item.Price)">In den Warenkorb</button>
+                </div>
+            }
         </div>
 
         <button class="back-button" onclick="location.href='@Url.Page("/Overview")'">Zurück</button>
