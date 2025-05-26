@@ -17,6 +17,7 @@ public class FahrtErstellenModel : PageModel
     [BindProperty] public string Ziel { get; set; } = string.Empty;  
     [BindProperty] public DateTime Zeit { get; set; }
     [BindProperty] public int Plaetze { get; set; }
+    [BindProperty] public TransportTyp Typ { get; set; } = TransportTyp.Auto; 
 
     public void OnGet() { }
 

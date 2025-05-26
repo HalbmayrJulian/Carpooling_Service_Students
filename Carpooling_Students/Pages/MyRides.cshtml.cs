@@ -23,7 +23,7 @@ public class MyRides_cs : PageModel
             .Include(f => f.Route)
             .Include(f => f.Fahrer)
             .Include(f => f.Passagiere)
-            .Where(f => f.Fahrer == aktuellerBenutzer || f.Passagiere.Contains(aktuellerBenutzer))
+            .Where(f => f.Fahrer == aktuellerBenutzer)
             .ToListAsync();
 
         var updateCandidates = Fahrten.Where(f => f.EndDatum < DateTime.Now && !f.Abgeschlossen).ToList();
