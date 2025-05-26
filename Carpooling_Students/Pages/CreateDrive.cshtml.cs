@@ -24,6 +24,8 @@ public class FahrtErstellenModel : PageModel
     public IActionResult OnPost()
     {
         int? userId = HttpContext.Session.GetInt32("UserId");
+        var benutzer = _context.Personen.FirstOrDefault(p => p.PersonId == userId);
+
         var Route = new Routen
         {
             StartOrt = Start,
@@ -32,16 +34,19 @@ public class FahrtErstellenModel : PageModel
             Weg = "" // Platzhalter für Routenbeschreibung
         };
 
+
         var Fahrt = new Fahrt
         {
             Typ = Typ,
             StartDatum = Zeit,
             EndDatum = Zeit.AddHours(10),
             Abgeschlossen = false,
-            Fahrer = _context.Personen.FirstOrDefault(p => p.PersonId == userId),
+            Fahrer = benutzer,
             Route = Route,
             Sitze = Plaetze
         };
+
+        benutzer.GefahreneFahrten.Add(Fahrt);
 
         _context.Routen.Add(Route);
         _context.Fahrten.Add(Fahrt);

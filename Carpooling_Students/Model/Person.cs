@@ -9,5 +9,11 @@
         public string Email { get; set; }
         public int GesamtDistanz { get; set; }
         public int Coins { get; set; }
+
+        // Navigationseigenschaft: Fahrten, die die Person fährt
+        public List<Fahrt> GefahreneFahrten { get; set; } = new();
+
+        // Navigationseigenschaft: Fahrten, an denen die Person teilnimmt (als Passagier)
+        public List<FahrtPassagier> Mitfahrten { get; set; } = new();
     }
 }

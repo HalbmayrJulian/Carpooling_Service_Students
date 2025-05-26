@@ -22,7 +22,7 @@ public class MyRides_cs : PageModel
         Fahrten = await _context.Fahrten
             .Include(f => f.Route)
             .Include(f => f.Fahrer)
-            .Include(f => f.Passagiere)
+            .Include(f => f.FahrtPassagiere)
             .Where(f => f.Fahrer == aktuellerBenutzer)
             .ToListAsync();
 
