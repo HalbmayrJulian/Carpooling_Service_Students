@@ -57,6 +57,15 @@
                 background-color: #1976D2;
             }
 
+            /* Stil für den roten Abmelde-Button */
+            .overview-buttons a.logout-button {
+                background-color: #f44336;
+            }
+
+                .overview-buttons a.logout-button:hover {
+                    background-color: #d32f2f;
+                }
+
         .fun-tip {
             margin-top: 20px;
             font-style: italic;
@@ -106,6 +115,7 @@
             <a href="@Url.Page("/JoinDrive")">🤝 Mitfahren</a>
             <a href="@Url.Page("/Ranking")">🏆 Rangliste</a>
             <a href="@Url.Page("/Shop")">🛍️ Shop</a>
+            <a href="@Url.Page("/Index")" class="logout-button">Abmelden</a>
         </div>
 
         <div class="fun-tip">Tipp: Je mehr du fährst, desto mehr Coins verdienst du! 💰</div>
