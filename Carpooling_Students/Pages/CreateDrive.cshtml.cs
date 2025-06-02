@@ -48,6 +48,8 @@ public class FahrtErstellenModel : PageModel
 
         benutzer.GefahreneFahrten.Add(Fahrt);
 
+        benutzer.Coins += 10;
+        
         _context.Routen.Add(Route);
         _context.Fahrten.Add(Fahrt);
 

@@ -93,6 +93,9 @@ public class JoinDrive_cs : PageModel
             Passagier = aktuellerBenutzer
         });
 
+        fahrt.Fahrer.Coins += 5;
+        aktuellerBenutzer.Coins += 2;
+
         await _context.SaveChangesAsync();
 
         TempData["Erfolg"] = "Du wurdest erfolgreich angemeldet.";
