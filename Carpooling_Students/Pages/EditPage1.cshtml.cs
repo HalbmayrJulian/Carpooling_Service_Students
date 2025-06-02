@@ -19,20 +19,39 @@ namespace Carpooling_Students.Pages
 
         public Fahrt Fahrt { get; set; }
 
+        [BindProperty]
+        public int? RemovePassagierId { get; set; }
+
         public async Task<IActionResult> OnGetAsync()
+        {
+            await LoadFahrt();
+            return Page();
+        }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            if (RemovePassagierId.HasValue)
+            {
+                var eintrag = await _context.FahrtPassagiere
+                    .FirstOrDefaultAsync(fp => fp.Id == RemovePassagierId.Value && fp.Fahrt.FahrtId == Id);
+
+                if (eintrag != null)
+                {
+                    _context.FahrtPassagiere.Remove(eintrag);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToPage(new { id = Id }); // Reload mit aktualisierter Liste
+        }
+
+        private async Task LoadFahrt()
         {
             Fahrt = await _context.Fahrten
                 .Include(f => f.Fahrer)
                 .Include(f => f.FahrtPassagiere)
                     .ThenInclude(fp => fp.Passagier)
                 .FirstOrDefaultAsync(f => f.FahrtId == Id);
-
-            if (Fahrt == null)
-            {
-                return NotFound(); // 404, wenn Fahrt nicht existiert
-            }
-
-            return Page();
         }
     }
 }
