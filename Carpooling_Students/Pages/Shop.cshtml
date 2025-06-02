@@ -13,7 +13,6 @@
     <title>Shop</title>
     <link rel="stylesheet" href="~/css/Stylesheet.css">
     <style>
-        /* Dein ganzes CSS bleibt unverändert */
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
@@ -52,11 +51,6 @@
                 color: #2c3e50;
             }
 
-        .cart-icon {
-            width: 40px;
-            cursor: pointer;
-        }
-
         .coin-balance {
             text-align: center;
             margin-bottom: 40px;
@@ -90,11 +84,6 @@
             .item-card h3 {
                 margin-top: 0;
                 color: #2c3e50;
-            }
-
-            .item-card p {
-                color: #555;
-                font-size: 0.95em;
             }
 
         .item-price {
@@ -135,21 +124,18 @@
             .back-button:hover {
                 background-color: #c7c7c7;
             }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
     </style>
     <script>
-        function addToCart(itemName, price) {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            cart.push({ name: itemName, price: price });
-            localStorage.setItem('cart', JSON.stringify(cart));
-            alert(itemName + " wurde zum Warenkorb hinzugefügt!");
+        function confirmPurchase(name, price) {
+            return confirm(`Willst du "${name}" wirklich für ${price} Coins kaufen?`);
         }
-
-        function displayCoins() {
-            const balance = @Model.Benutzer.Coins;
-            document.getElementById("coinDisplay").innerText = "Dein Guthaben: " + balance + " Coins";
-        }
-
-        window.onload = displayCoins;
     </script>
 </head>
 <body>
@@ -159,21 +145,26 @@
                 <img src="~/Images/HTLWYLogo.png" alt="HTL Logo">
                 <h1>Shop</h1>
             </div>
-            <a href="@Url.Page("/shopping-cart")">
-                <img src="~/Images/shoppingcart.jpg" alt="Warenkorb" class="cart-icon">
-            </a>
         </div>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="error-message">@TempData["Error"]</div>
+        }
 
         <div class="coin-balance" id="coinDisplay">Dein Guthaben: @Model.Benutzer.Coins</div>
 
         <div class="items-grid">
             @foreach (var item in Model.ArtikelListe)
             {
-                <div class="item-card">
-                    <h3>🎁 @item.Name</h3>
-                    <div class="item-price">Preis: @item.Price Coins</div>
-                    <button class="add-button" onclick="addToCart('@item.Name', @item.Price)">In den Warenkorb</button>
-                </div>
+                <form method="post" asp-page-handler="Buy" onsubmit="return confirmPurchase('@item.Name', @item.Price)">
+                    <input type="hidden" name="itemId" value="@item.ItemId" />
+                    <div class="item-card">
+                        <h3>🎁 @item.Name</h3>
+                        <div class="item-price">Preis: @item.Price Coins</div>
+                        <button class="add-button" type="submit">Kaufen</button>
+                    </div>
+                </form>
             }
         </div>
 
