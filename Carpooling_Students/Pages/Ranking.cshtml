@@ -3,6 +3,8 @@
 @{
     ViewData["Title"] = "Rangliste";
     Layout = null;
+    var user = Model.AktuellerBenutzer;
+    var rang = Model.AktuellerRang;
 }
 
 <!DOCTYPE html>
@@ -137,39 +139,30 @@
             <h1>Rangliste</h1>
         </div>
 
-        <div class="user-rank">
-            <img src="~/Images/Profile.png" alt="Profilbild" />
-            <div class="user-info">
-                <span><strong>Du:</strong> Max Mustermann</span>
-                <span>Gefahrene Kilometer: 150 km</span>
-                <span>Dein Rang: #4</span>
+        @if (user != null && rang.HasValue)
+        {
+            <div class="user-rank">
+                <img src="~/Images/Profile.png" alt="Profilbild" />
+                <div class="user-info">
+                    <span><strong>Du:</strong> @user.Name</span>
+                    <span>Gefahrene Fahrten: @user.GefahreneFahrten.Count</span>
+                    <span>Dein Rang: #@rang</span>
+                </div>
             </div>
-        </div>
+        }
 
         <div class="ranking-list">
-            <div class="entry">
-                <img src="~/Images/Profile.png" alt="Profilbild" />
-                <div class="details">
-                    <span><strong>#1:</strong> Lisa Beispiel</span>
-                    <span>Gefahrene Kilometer: 320 km</span>
+            @for (int i = 0; i < Model.PersonenMitRanking.Count; i++)
+            {
+                var person = Model.PersonenMitRanking[i];
+                <div class="entry">
+                    <img src="~/Images/Profile.png" alt="Profilbild" />
+                    <div class="details">
+                        <span><strong>#@(i + 1):</strong> @person.Name</span>
+                        <span>Gefahrene Fahrten: @person.GefahreneFahrten.Count</span>
+                    </div>
                 </div>
-            </div>
-
-            <div class="entry">
-                <img src="~/Images/Profile.png" alt="Profilbild" />
-                <div class="details">
-                    <span><strong>#2:</strong> Jonas Fahrer</span>
-                    <span>Gefahrene Kilometer: 280 km</span>
-                </div>
-            </div>
-
-            <div class="entry">
-                <img src="~/Images/Profile.png" alt="Profilbild" />
-                <div class="details">
-                    <span><strong>#3:</strong> Anna Mobil</span>
-                    <span>Gefahrene Kilometer: 200 km</span>
-                </div>
-            </div>
+            }
         </div>
 
         <button class="back-button" onclick="location.href='@Url.Page("/Overview")'">Zurück</button>
