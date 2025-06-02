@@ -40,8 +40,8 @@ public class JoinDrive_cs : PageModel
                 .ThenInclude(fp => fp.Passagier)
             .Where(f => !f.Abgeschlossen &&
                         f.EndDatum > DateTime.Now &&
-                        f.Fahrer != aktuellerBenutzer &&
-                        f.FahrtPassagiere.Any(fp => fp.Passagier.PersonId != aktuellerBenutzer.PersonId))
+                        f.Fahrer.PersonId != aktuellerBenutzer.PersonId &&
+                        !f.FahrtPassagiere.Any(fp => fp.Passagier.PersonId == aktuellerBenutzer.PersonId))
             .ToListAsync();
 
         return Page();
@@ -73,6 +73,13 @@ public class JoinDrive_cs : PageModel
             return NotFound("Fahrt nicht gefunden.");
         }
 
+        if (fahrt.FahrtPassagiere.Any(fp => fp.Passagier.PersonId == aktuellerBenutzer.PersonId))
+        {
+            ModelState.AddModelError("", "Du bist bereits für diese Fahrt angemeldet.");
+            await OnGetAsync();
+            return Page();
+        }
+
         if (fahrt.FahrtPassagiere.Count >= fahrt.Sitze)
         {
             ModelState.AddModelError("", "Keine Plätze mehr verfügbar.");
@@ -91,4 +98,5 @@ public class JoinDrive_cs : PageModel
         TempData["Erfolg"] = "Du wurdest erfolgreich angemeldet.";
         return RedirectToPage("/JoinDrive");
     }
+
 }
