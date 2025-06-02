@@ -145,7 +145,7 @@
         }
 
         function displayCoins() {
-            const balance = parseInt(localStorage.getItem("coins")) || 120;
+            const balance = @Model.Benutzer.Coins;
             document.getElementById("coinDisplay").innerText = "Dein Guthaben: " + balance + " Coins";
         }
 
@@ -164,14 +164,13 @@
             </a>
         </div>
 
-        <div class="coin-balance" id="coinDisplay">Dein Guthaben: 120 Coins</div>
+        <div class="coin-balance" id="coinDisplay">Dein Guthaben: @Model.Benutzer.Coins</div>
 
         <div class="items-grid">
             @foreach (var item in Model.ArtikelListe)
             {
                 <div class="item-card">
                     <h3>🎁 @item.Name</h3>
-                    <p>Kein Beschreibungstext vorhanden.</p> <!-- Falls du später Beschreibung willst -->
                     <div class="item-price">Preis: @item.Price Coins</div>
                     <button class="add-button" onclick="addToCart('@item.Name', @item.Price)">In den Warenkorb</button>
                 </div>
