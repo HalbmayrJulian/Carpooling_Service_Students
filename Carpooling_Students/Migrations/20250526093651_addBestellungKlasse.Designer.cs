@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,33 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Carpooling_Students.Migrations
 {
     [DbContext(typeof(CarpoolContext))]
-    partial class CarpoolContextModelSnapshot : ModelSnapshot
+    [Migration("20250526093651_addBestellungKlasse")]
+    partial class addBestellungKlasse
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
-
-            modelBuilder.Entity("Carpooling_Students.Model.Bestellposition", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("BestellungId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BestellungId");
-
-                    b.HasIndex("ItemId");
-
-                    b.ToTable("Bestellpositionen");
-                });
 
             modelBuilder.Entity("Carpooling_Students.Model.Bestellung", b =>
                 {
@@ -46,12 +28,12 @@ namespace Carpooling_Students.Migrations
                     b.Property<DateTime>("Bestelldatum")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("UserPersonId")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserPersonId");
 
                     b.ToTable("Bestellungen");
                 });
@@ -178,6 +160,9 @@ namespace Carpooling_Students.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("BestellungId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -189,6 +174,8 @@ namespace Carpooling_Students.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("ItemId");
+
+                    b.HasIndex("BestellungId");
 
                     b.HasIndex("ShopId");
 
@@ -206,30 +193,11 @@ namespace Carpooling_Students.Migrations
                     b.ToTable("Shops");
                 });
 
-            modelBuilder.Entity("Carpooling_Students.Model.Bestellposition", b =>
-                {
-                    b.HasOne("Carpooling_Students.Model.Bestellung", "Bestellung")
-                        .WithMany("Artikel")
-                        .HasForeignKey("BestellungId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Item", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Bestellung");
-
-                    b.Navigation("Item");
-                });
-
             modelBuilder.Entity("Carpooling_Students.Model.Bestellung", b =>
                 {
                     b.HasOne("Carpooling_Students.Model.Person", "User")
                         .WithMany()
-                        .HasForeignKey("UserId")
+                        .HasForeignKey("UserPersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -276,6 +244,10 @@ namespace Carpooling_Students.Migrations
 
             modelBuilder.Entity("Item", b =>
                 {
+                    b.HasOne("Carpooling_Students.Model.Bestellung", null)
+                        .WithMany("Artikel")
+                        .HasForeignKey("BestellungId");
+
                     b.HasOne("Shop", null)
                         .WithMany("Items")
                         .HasForeignKey("ShopId");

@@ -1,0 +1,5 @@
+INSERT INTO Items (Name, Price) VALUES
+('50% Gutschein', 80),
+('Gratis Menü', 100),
+('10% Gutschein', 40),
+('20% Rabattkarte', 60);

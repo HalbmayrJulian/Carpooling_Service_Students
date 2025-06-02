@@ -155,7 +155,7 @@
             renderCart();
         }
 
-        function confirmOrder() {
+        async function confirmOrder() {
             const total = cart.reduce((sum, item) => sum + item.price, 0);
 
             if (cart.length === 0) {
@@ -168,12 +168,26 @@
                 return;
             }
 
-            userCoins -= total;
-            localStorage.setItem("coins", userCoins);
-            localStorage.removeItem("cart");
-            alert("Bestellung erfolgreich abgeschickt! 🎉\nVerbleibendes Guthaben: " + userCoins + " Coins");
-            cart = [];
-            renderCart();
+            const response = await fetch(window.location.href, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(cart)
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                userCoins = result.remaining;
+                localStorage.setItem("coins", userCoins);
+                localStorage.removeItem("cart");
+                alert("Bestellung erfolgreich abgeschickt! 🎉\nVerbleibendes Guthaben: " + userCoins + " Coins");
+                cart = [];
+                renderCart();
+            } else {
+                alert("Fehler beim Abschicken: " + result.message);
+            }
         }
 
         renderCart();

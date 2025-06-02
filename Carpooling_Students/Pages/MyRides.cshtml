@@ -49,6 +49,7 @@
             border-radius: 12px;
             margin-bottom: 15px;
             transition: background 0.3s, transform 0.2s;
+            text-decoration: none;
         }
 
             .ride-box:not(.disabled):hover {
@@ -81,6 +82,7 @@
 
         .ride-box.disabled {
             background: #dddddd;
+            pointer-events: none;
         }
 
             .ride-box.disabled:hover {
@@ -111,13 +113,14 @@
 <body>
     <div class="rides-container">
         <h1>Meine Fahrten</h1>
+
         <div id="open-rides-section">
             <h2>🚗 Offene Fahrten</h2>
             @foreach (var ride in Model.Fahrten)
             {
                 if (!ride.Abgeschlossen)
                 {
-                    <div class="ride-box">
+                    <a class="ride-box" asp-page="/EditPage1" asp-route-id="@ride.FahrtId">
                         <div class="ride-info">
                             <strong>@ride.Route.StartOrt → @ride.Route.ZielOrt</strong>
                             <span>Startdatum: @ride.StartDatum.ToShortDateString()</span>
@@ -127,7 +130,7 @@
                                 <span>@fahrt.Sitze Plätze belegt</span>
                             }
                         </div>
-                    </div>
+                    </a>
                 }
             }
         </div>

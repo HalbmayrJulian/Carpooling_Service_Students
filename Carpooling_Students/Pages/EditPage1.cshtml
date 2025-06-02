@@ -1,5 +1,5 @@
-﻿@page
-@model EditFahrtModel
+﻿@page "{id:int}"
+@model Carpooling_Students.Pages.EditFahrtModel
 @{
     ViewData["Title"] = "Fahrt bearbeiten";
     Layout = null;
@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Fahrt bearbeiten</title>
-    <link rel="stylesheet" href="~/css/Stylesheet.css">
+    <link rel="stylesheet" href="~/css/Stylesheet.css" />
     <style>
         body {
             margin: 0;
@@ -27,6 +27,10 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             position: relative;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         h1 {
@@ -67,99 +71,72 @@
             color: #2c3e50;
         }
 
-        .remove-button {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
+        .button-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
         }
 
-            .remove-button:hover {
-                background-color: #c0392b;
-            }
-
-        .next-button {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
+        .nav-button {
             background-color: #3498db;
             color: white;
             border: none;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            font-size: 1.5em;
+            border-radius: 12px;
+            padding: 14px 30px;
+            font-size: 1em;
+            font-weight: bold;
             cursor: pointer;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
             transition: background-color 0.3s;
         }
 
-            .next-button:hover {
+            .nav-button:hover {
                 background-color: #2980b9;
             }
+
+            .nav-button.back {
+                background-color: #95a5a6;
+            }
+
+                .nav-button.back:hover {
+                    background-color: #7f8c8d;
+                }
     </style>
 </head>
 <body>
     <div class="edit-container">
-        <h1>Fahrt bearbeiten</h1>
+        <div>
+            <h1>Fahrt bearbeiten</h1>
 
-        <div class="driver-section">
-            <h2>Fahrer</h2>
-            <div class="person-box">
-                <div class="person-info">
-                    <img src="~/Images/Profile.png" alt="Fahrer">
-                    <span class="person-name">Max Mustermann</span>
+            <div class="driver-section">
+                <h2>Fahrer</h2>
+                <div class="person-box">
+                    <div class="person-info">
+                        <img src="~/Images/Profile.png" alt="Fahrer" />
+                        <span class="person-name">@Model.Fahrt.Fahrer?.Name</span>
+                    </div>
                 </div>
+            </div>
+
+            <div class="passenger-section">
+                <h2>Mitfahrer</h2>
+                @foreach (var mitfahrer in Model.Fahrt.FahrtPassagiere)
+                {
+                    <div class="person-box">
+                        <div class="person-info">
+                            <img src="~/Images/Profile.png" alt="Mitfahrer" />
+                            <span class="person-name">@mitfahrer.Passagier?.Name</span>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
 
-        <div class="passenger-section">
-            <h2>Mitfahrer</h2>
-            <div id="passenger-list"></div>
+        <div class="button-row">
+            <button class="nav-button back" onclick="location.href='@Url.Page("/MyRides")'">← Zurück</button>
+            <button class="nav-button" onclick="location.href='@Url.Page("/EditPage2", new { id = Model.Fahrt.FahrtId })'">Weiter →</button>
         </div>
-
-        <button class="next-button" onclick="location.href='@Url.Page("/EditPage2")'">→</button>
     </div>
-
-    <script>
-        let passengers = [
-            { name: "Lisa Beispiel" },
-            { name: "Jonas Fahrer" },
-            { name: "Anna Mobil" }
-        ];
-
-        function renderPassengers() {
-            const list = document.getElementById("passenger-list");
-            list.innerHTML = "";
-
-            passengers.forEach((person, index) => {
-                const div = document.createElement("div");
-                div.className = "person-box";
-                div.innerHTML = `
-                    <div class="person-info">
-                        <img src="/Ressourcen/Images/Profile.png" alt="Person">
-                        <span class="person-name">${person.name}</span>
-                    </div>
-                    <button class="remove-button" onclick="removePassenger(${index})">Entfernen</button>
-                `;
-                list.appendChild(div);
-            });
-
-            localStorage.setItem("passengerCount", passengers.length);
-        }
-
-        function removePassenger(index) {
-            if (confirm("Möchtest du diese Person wirklich entfernen?")) {
-                passengers.splice(index, 1);
-                renderPassengers();
-            }
-        }
-
-        window.onload = renderPassengers;
-    </script>
 </body>
 </html>
