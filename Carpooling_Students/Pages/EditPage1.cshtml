@@ -71,6 +71,26 @@
             color: #2c3e50;
         }
 
+        .remove-button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+            .remove-button:hover {
+                background-color: #c0392b;
+            }
+
+        form.inline-form {
+            margin: 0;
+        }
+
         .button-row {
             display: flex;
             justify-content: center;
@@ -128,6 +148,10 @@
                             <img src="~/Images/Profile.png" alt="Mitfahrer" />
                             <span class="person-name">@mitfahrer.Passagier?.Name</span>
                         </div>
+                        <form method="post" class="inline-form">
+                            <input type="hidden" name="removePassagierId" value="@mitfahrer.Id" />
+                            <button type="submit" class="remove-button">Entfernen</button>
+                        </form>
                     </div>
                 }
             </div>
