@@ -14,7 +14,9 @@ function setCurrentDate() {
     const today = new Date();
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const dateString = today.toLocaleDateString('de-DE', options); // Datum im deutschen Format
-    document.getElementById('current-date').innerText = dateString;
+    if(document.getElementById('current-date')) {
+        document.getElementById('current-date').innerText = dateString;
+    })
 }
 
 // Datum setzen, wenn die Seite geladen wird

@@ -63,7 +63,9 @@ public class JoinDrive_cs : PageModel
             return Unauthorized();
         }
 
-        var fahrt = await _context.Fahrten
+        var fahrt = await _context.Fahrten.Include(f => f.Route)
+                .Include(f => f.Fahrer)
+                .Where(f => !f.Abgeschlossen && f.EndDatum > DateTime.Now)
             .Include(f => f.FahrtPassagiere)
                 .ThenInclude(fp => fp.Passagier)
             .FirstOrDefaultAsync(f => f.FahrtId == FahrtId);
